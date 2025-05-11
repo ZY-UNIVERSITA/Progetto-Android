@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+*.log.*
 
 # BlueJ files
 *.ctxt
@@ -15,6 +16,8 @@
 *.war
 *.nar
 *.ear
+*.aar
+*.apk
 *.zip
 *.tar.gz
 *.rar
@@ -23,5 +26,34 @@
 hs_err_pid*
 replay_pid*
 
+# Cartelle di build (root + sub-module)
+build/
+*/build/
+
+# Cache Gradle (root + sub-module)
+.gradle/
+**/.gradle/
+
+# Metadati di modulo generati dal compilatore
+*.kotlin_module
+*.kotlin_metadata
+
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
+
+# Config progetto
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Compilazione IntelliJ
+out/
+
+# Chiavi, impostazioni locali
+local.properties
+*.keystore
+*.jks
+
+# VS Code
+.vscode/
