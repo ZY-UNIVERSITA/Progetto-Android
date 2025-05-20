@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 // TODO: 
-// Add multi user
-// Change name to word performance
+// Add multi user -> userId, wordId as primary key
+// Change name to word stats
 
 
 /**
