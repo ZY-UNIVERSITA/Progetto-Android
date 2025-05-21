@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    File: res/xml/paths.xml
+
+    Description:
+    This XML file defines the file-system paths that can be securely shared 
+    with other apps through the FileProvider component.
+
+    Purpose:
+    It allows your app to grant temporary, secure access to files (such as photos)
+    located in the cache directory, using content URIs instead of file URIs.
+
+    Why it’s needed:
+    Starting from Android 7.0 (API level 24), sharing files via 'file://' URIs
+    can cause a FileUriExposedException. This configuration avoids that by using
+    'content://' URIs that are safe and compatible with the system's security model.
+
+    How it works:
+    - The <cache-path> tag maps the app's cache directory (`context.cacheDir`)
+      to a virtual path called "tempImages".
+    - When you create a File object in the cache directory and pass it to
+      FileProvider.getUriForFile(), it generates a secure content URI 
+      (e.g. content://your.package.name.provider/tempImages/photo.jpg).
+    - This URI can then be safely provided to external apps (e.g., Camera) 
+      via Intents without exposing raw file paths.
+
+    Usage example in FileProvider declaration (AndroidManifest.xml):
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+        Grants FileProvider access to files in the cache directory.
+        All files inside context.cacheDir will be accessible via the alias "tempImages".
+    -->
+    <cache-path name="tempImages" path="." />
+</paths>
