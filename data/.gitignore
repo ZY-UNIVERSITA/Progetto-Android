@@ -1,1 +1,5 @@
 /build
+
+data/src/main/java/com/zyuniversita/data/utils/old/*
+data/src/main/java/com/zyuniversita/data/remote/old/*
+data/src/main/java/com/zyuniversita/data/local/old/*
