@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
-    private val TAG: String = "Main_Activity_TAG"
+    companion object {
+        private const val TAG: String = "Splash_Activity_TAG"
+    }
 
     private val viewModel: SplashScreenViewModel by viewModels()
 
