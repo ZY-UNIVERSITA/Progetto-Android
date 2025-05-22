@@ -1,0 +1,7 @@
+package com.zyuniversita.ui.setup.uistate
+
+// Sealed -> Everything need to be defined in this file
+sealed interface SetupEvent {
+    // Singleton
+    data object NavigateToHome : SetupEvent
+}
