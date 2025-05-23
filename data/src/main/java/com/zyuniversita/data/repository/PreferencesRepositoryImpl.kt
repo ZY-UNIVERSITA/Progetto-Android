@@ -45,6 +45,9 @@ class PreferencesRepositoryImpl @Inject constructor(
 
         // Key to store/retrieve the word repetition preference.
         private val WORD_REPETITION = booleanPreferencesKey("word_repetition")
+
+        private val APP_OPENED = booleanPreferencesKey("app_opened")
+        private val LAST_OPENED_TIME = longPreferencesKey("last_opened_time")
     }
 
     /**
