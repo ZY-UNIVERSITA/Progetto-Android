@@ -125,4 +125,16 @@ class PreferencesRepositoryImpl @Inject constructor(
             preferences[WORD_REPETITION] = repetition
         }
     }
+
+    override suspend fun saveAppOpened() {
+        context.dataStore.edit { preferences ->
+            preferences[APP_OPENED] = true
+            preferences[LAST_OPENED_TIME] = System.currentTimeMillis()
+        }
+    }
+
+    override val hasAppBeenOpened: Flow<Boolean>
+        get() = context.dataStore.data
+            .map { preferences -> preferences[APP_OPENED] ?: false }
+
 }
