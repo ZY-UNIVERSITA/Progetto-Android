@@ -14,4 +14,7 @@ interface PreferencesRepository {
 
     val getWordRepetition: Flow<Boolean>
     suspend fun setWordRepetition(repetition: Boolean): Unit
+
+    val hasAppBeenOpened: Flow<Boolean>
+    suspend fun saveAppOpened(): Unit
 }
