@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 0) Exit in alto a destra -->
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 1) Parola da scrivere nel quiz -->
+    <TextView
+        android:id="@+id/quizWordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Quiz word"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/transliterationText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Evetuale translitterazione del carattere -->
+    <TextView
+        android:id="@+id/transliterationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Quiz word"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/answerQuizText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quizWordText" />
+
+    <!-- 1b) Risposta (di default nascosta) -->
+    <TextView
+        android:id="@+id/answerQuizText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="The answer"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/drawingView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transliterationText" />
+
+    <!-- 2) Area di disegno -->
+    <com.zyuniversita.ui.customviews.DrawingView
+        android:id="@+id/drawingView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/undoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerQuizText" />
+
+    <!-- 2a) Clear (sinistra) -->
+    <Button
+        android:id="@+id/undoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/undo"
+
+        app:layout_constraintBottom_toTopOf="@id/showResult"
+        app:layout_constraintEnd_toStartOf="@id/clearButton"
+
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/drawingView" /> 
+
+    <!-- 2b) Save (destra) -->
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/clear"
+
+        app:layout_constraintBottom_toBottomOf="@id/undoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toEndOf="@id/undoButton"
+        app:layout_constraintTop_toTopOf="@id/undoButton" />
+
+    <!-- 2c) Show result -->
+    <Button
+        android:id="@+id/showResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Show result"
+        app:layout_constraintBottom_toTopOf="@id/correctButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/undoButton" />
+
+    <!-- 3a) Correct -->
+    <Button
+        android:id="@+id/correctButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="Correct"
+        app:layout_constraintBottom_toTopOf="@id/nextWordButton"
+        app:layout_constraintEnd_toStartOf="@id/incorrectButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/showResult" />
+
+    <!-- 3b) Incorrect -->
+    <Button
+        android:id="@+id/incorrectButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="Incorrect"
+        app:layout_constraintBottom_toBottomOf="@id/correctButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/correctButton"
+        app:layout_constraintTop_toTopOf="@id/correctButton" />
+
+    <!-- 4) Next Word -->
+    <Button
+        android:id="@+id/nextWordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:enabled="false"
+        android:text="Next Word"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/correctButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
