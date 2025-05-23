@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/game_choosing_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/choose_your_game"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/game_eng_lang"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_writing"
+        app:layout_constraintEnd_toStartOf="@id/game_lang_eng"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/game_choosing_text">
+
+        <ImageButton
+            android:id="@+id/eng_lang_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="#F1F8E9"
+            android:contentDescription="@string/english_to_chosen_language"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/eng_ch" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/game_lang_eng"
+        android:layout_width="175dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/game_linking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/game_eng_lang"
+        app:layout_constraintTop_toBottomOf="@id/game_choosing_text">
+
+        <ImageButton
+            android:id="@+id/lang_eng_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#F1F8E9"
+            android:contentDescription="@string/chosen_language_to_english"
+            android:scaleType="fitCenter"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/eng_ch" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- RIGA INFERIORE: Chain orizzontale -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/game_writing"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/game_linking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/game_eng_lang">
+
+        <ImageButton
+            android:id="@+id/writing_game_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="#E8F5E9"
+            android:contentDescription="@string/writing_game"
+            android:scaleType="fitCenter"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/eng_ch" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/game_linking"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/game_writing"
+        app:layout_constraintTop_toBottomOf="@id/game_lang_eng">
+
+        <ImageButton
+            android:id="@+id/linking_game_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#E8F5E9"
+            android:contentDescription="@string/linking_game"
+            android:scaleType="fitCenter"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/eng_ch" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
