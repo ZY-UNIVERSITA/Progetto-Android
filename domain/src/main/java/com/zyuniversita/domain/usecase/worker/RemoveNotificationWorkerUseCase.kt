@@ -4,12 +4,12 @@ import com.zyuniversita.domain.repository.WorkerRepository
 import javax.inject.Inject
 
 interface RemoveNotificationWorkerUseCase {
-    fun invoke(): Unit
+    operator fun invoke(): Unit
 }
 
 class RemoveNotificationWorkerUseCaseImpl @Inject constructor(private val workerRepository: WorkerRepository) :
     RemoveNotificationWorkerUseCase {
-    override fun invoke() {
+    override operator fun invoke() {
         workerRepository.removeNotificationWorker()
     }
 
