@@ -41,6 +41,8 @@ class SetupActivity() : AppCompatActivity() {
 
         setContentView(view)
 
+        viewModel.startNotificationWorker()
+
         viewModel.navigation()
         viewModel.fetchUsername()
         viewModel.checkDatabase()

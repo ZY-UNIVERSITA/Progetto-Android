@@ -12,6 +12,8 @@ import com.zyuniversita.domain.usecase.preferences.SetUsernameUseCase
 import com.zyuniversita.domain.usecase.userdata.InsertNewUserUseCase
 import com.zyuniversita.domain.usecase.worddatabase.FetchLatestDatabaseVersionUseCase
 import com.zyuniversita.domain.usecase.worddatabase.UpdateWordDatabaseUseCase
+import com.zyuniversita.domain.usecase.worker.RemoveNotificationWorkerUseCase
+import com.zyuniversita.domain.usecase.worker.StartNotificationWorkerUseCase
 import com.zyuniversita.ui.setup.uistate.SetupEvent
 import com.zyuniversita.ui.setup.uistate.SetupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,6 +42,9 @@ class SetupViewModel @Inject constructor(
     private val updateWordDatabaseUseCase: UpdateWordDatabaseUseCase,
 
     private val startFetchLanguageUseCase: StartFetchLanguageUseCase,
+
+    private val startNotificationWorkerUseCase: StartNotificationWorkerUseCase,
+    private val removeNotificationWorkerUseCase: RemoveNotificationWorkerUseCase
 ) : ViewModel() {
 
     /* ---------------- UI State ---------------- */
@@ -136,6 +141,15 @@ class SetupViewModel @Inject constructor(
                 it.copy(isLanguageLoading = false)
             }
         }
+    }
 
+    /* Restart Notification Worker */
+    fun startNotificationWorker() {
+        removeNotificationWorker()
+        startNotificationWorkerUseCase()
+    }
+
+    private fun removeNotificationWorker() {
+        removeNotificationWorkerUseCase()
     }
 }
