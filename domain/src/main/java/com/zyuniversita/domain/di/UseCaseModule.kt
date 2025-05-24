@@ -1,11 +1,11 @@
 package com.zyuniversita.domain.di
 
-import com.zyuniversita.domain.usecase.FetchLanguageUseCase
-import com.zyuniversita.domain.usecase.FetchLanguageUseCaseImpl
-import com.zyuniversita.domain.usecase.StartFetchLanguageUseCase
-import com.zyuniversita.domain.usecase.StartFetchLanguageUseCaseImpl
 import com.zyuniversita.domain.usecase.imagerecognition.UploadImageToRecognizeUseCase
 import com.zyuniversita.domain.usecase.imagerecognition.UploadImageToRecognizeUseCaseImpl
+import com.zyuniversita.domain.usecase.languages.FetchLanguageUseCase
+import com.zyuniversita.domain.usecase.languages.FetchLanguageUseCaseImpl
+import com.zyuniversita.domain.usecase.languages.StartFetchLanguageUseCase
+import com.zyuniversita.domain.usecase.languages.StartFetchLanguageUseCaseImpl
 import com.zyuniversita.domain.usecase.mapping.GroupWordsAndUserDataByLevelUseCase
 import com.zyuniversita.domain.usecase.mapping.GroupWordsAndUserDataByLevelUseCaseImpl
 import com.zyuniversita.domain.usecase.mapping.GroupWordsByLevelUseCase
@@ -66,6 +66,10 @@ import com.zyuniversita.domain.usecase.wordslist.FetchWordsByLanguageGeneralList
 import com.zyuniversita.domain.usecase.wordslist.FetchWordsByLanguageGeneralListUseCaseImpl
 import com.zyuniversita.domain.usecase.wordslist.StartFetchWordsByLanguageGeneralListUseCase
 import com.zyuniversita.domain.usecase.wordslist.StartFetchWordsByLanguageGeneralListUseCaseImpl
+import com.zyuniversita.domain.usecase.worker.RemoveNotificationWorkerUseCase
+import com.zyuniversita.domain.usecase.worker.RemoveNotificationWorkerUseCaseImpl
+import com.zyuniversita.domain.usecase.worker.StartNotificationWorkerUseCase
+import com.zyuniversita.domain.usecase.worker.StartNotificationWorkerUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -273,4 +277,16 @@ abstract class UseCaseModule {
     abstract fun bindSetWordRepetitionUseCase(
         setWordRepetitionUseCaseImpl: SetWordRepetitionUseCaseImpl
     ): SetWordRepetitionUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindStartNotificationWorkerUseCase(
+        startNotificationWorkerUseCaseImpl: StartNotificationWorkerUseCaseImpl
+    ): StartNotificationWorkerUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindRemoveNotificationWorkerUseCase(
+        removeNotificationWorkerUseCaseImpl: RemoveNotificationWorkerUseCaseImpl
+    ): RemoveNotificationWorkerUseCase
 }
