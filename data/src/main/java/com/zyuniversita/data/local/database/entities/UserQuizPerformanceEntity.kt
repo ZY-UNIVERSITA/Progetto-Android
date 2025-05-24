@@ -4,10 +4,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-
 /**
  * Represents a user's quiz performance for a specific language.
  *
