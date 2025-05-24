@@ -3,7 +3,7 @@ package com.zyuniversita.ui.setup
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.usecase.StartFetchLanguageUseCase
+import com.zyuniversita.domain.usecase.languages.StartFetchLanguageUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchCurrentDatabaseVersionUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchUsernameUseCase
 import com.zyuniversita.domain.usecase.preferences.SetCurrentDatabaseVersionUseCase
