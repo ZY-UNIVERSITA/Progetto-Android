@@ -5,6 +5,9 @@
     <!-- Request to connect to the INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <!-- Main app information -->
     <application
         android:name=".QuizApplication"
