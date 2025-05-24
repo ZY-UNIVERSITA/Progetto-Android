@@ -5,11 +5,13 @@ import com.zyuniversita.data.repository.LanguageRepositoryImpl
 import com.zyuniversita.data.repository.PreferencesRepositoryImpl
 import com.zyuniversita.data.repository.QuizWordRepositoryImpl
 import com.zyuniversita.data.repository.UserDataRepositoryImpl
+import com.zyuniversita.data.repository.WorkerRepositoryImpl
 import com.zyuniversita.domain.repository.ImageRecognitionRepository
 import com.zyuniversita.domain.repository.LanguageRepository
 import com.zyuniversita.domain.repository.PreferencesRepository
 import com.zyuniversita.domain.repository.QuizWordRepository
 import com.zyuniversita.domain.repository.UserDataRepository
+import com.zyuniversita.domain.repository.WorkerRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -86,4 +88,10 @@ abstract class RepositoryProviderModule {
     abstract fun bindUserDataRepository(
         userDataRepositoryImpl: UserDataRepositoryImpl
     ): UserDataRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindWorkerRepository(
+        workerRepositoryImpl: WorkerRepositoryImpl
+    ): WorkerRepository
 }
