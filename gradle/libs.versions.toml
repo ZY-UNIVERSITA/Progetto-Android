@@ -1,5 +1,5 @@
 [versions]
-agp = "8.10.0"
+agp = "8.10.1"
 datastorePreferences = "1.2.0-alpha01"
 fragmentKtx = "1.8.6"
 hiltAndroid = "2.56.2"
