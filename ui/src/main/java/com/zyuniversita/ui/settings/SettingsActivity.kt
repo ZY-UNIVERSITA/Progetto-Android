@@ -42,7 +42,8 @@ class SettingsActivity() : AppCompatActivity() {
         binding.Save.setOnClickListener {
             val username = binding.username.text.toString()
             val repetition = binding.repeatWords.isChecked
-            viewModel.saveData(SettingsToSave(username, repetition))
+            val synchronization = binding.synchronization.isChecked
+            viewModel.saveData(SettingsToSave(username, repetition, synchronization))
         }
     }
 

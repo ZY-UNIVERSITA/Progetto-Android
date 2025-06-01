@@ -16,8 +16,14 @@ import com.zyuniversita.ui.main.wordslist.language.LanguageListFragment
 import com.zyuniversita.ui.main.wordslist.singleword.SingleWordFragment
 import com.zyuniversita.ui.main.wordslist.words.WordsListFragment
 import com.zyuniversita.ui.settings.SettingsActivity
+import com.zyuniversita.ui.setup.local.LocalRegisterFragment
+import com.zyuniversita.ui.setup.login.LoginFragment
+import com.zyuniversita.ui.setup.registration.RegisterFragment
 
 enum class Page {
+    REGISTER,
+    LOCAL_REGISTER,
+    LOGIN,
     HOME,
     GAME,
     THEORY,
@@ -39,6 +45,9 @@ enum class Page {
 object ApplicationFragmentFactory {
 
     private val pageMap: Map<Page, Class<out Fragment>> = mapOf(
+        Page.REGISTER to RegisterFragment::class.java,
+        Page.LOCAL_REGISTER to LocalRegisterFragment::class.java,
+        Page.LOGIN to LoginFragment::class.java,
         Page.HOME to HomePageFragment::class.java,
         Page.GAME to GamesLanguageListFragment::class.java,
         Page.THEORY to LanguageListFragment::class.java,
@@ -58,7 +67,8 @@ object ApplicationFragmentFactory {
     }
 
     fun getPage(page: Page): Fragment {
-        return pageMap[page]?.getDeclaredConstructor()?.newInstance() ?: throw IllegalArgumentException("Page is not available.")
+        return pageMap[page]?.getDeclaredConstructor()?.newInstance()
+            ?: throw IllegalArgumentException("Page is not available.")
     }
 }
 
