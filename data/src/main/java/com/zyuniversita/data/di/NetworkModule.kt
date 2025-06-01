@@ -2,7 +2,9 @@ package com.zyuniversita.data.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.zyuniversita.data.remote.authentication.api.AuthenticationApi
 import com.zyuniversita.data.remote.imagerecognition.api.ImageRecognitionApi
+import com.zyuniversita.data.remote.synchronization.api.SynchronizationApi
 import com.zyuniversita.data.remote.wordDatabase.api.WordDatabaseApi
 import dagger.Module
 import dagger.Provides
@@ -74,7 +76,7 @@ object NetworkModule {
     fun provideRetrofit(
         baseUrl: String,
         okHttpClient: OkHttpClient,
-        moshi: Moshi
+        moshi: Moshi,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -93,7 +95,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideWordDatabaseApi(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): WordDatabaseApi {
         return retrofit.create(WordDatabaseApi::class.java)
     }
@@ -108,8 +110,24 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideImageRecognitionApi(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): ImageRecognitionApi {
         return retrofit.create(ImageRecognitionApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationApi(
+        retrofit: Retrofit,
+    ): AuthenticationApi {
+        return retrofit.create(AuthenticationApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSynchronizationApi(
+        retrofit: Retrofit,
+    ): SynchronizationApi {
+        return retrofit.create(SynchronizationApi::class.java)
     }
 }
