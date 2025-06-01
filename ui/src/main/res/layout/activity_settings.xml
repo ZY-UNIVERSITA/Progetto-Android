@@ -10,6 +10,7 @@
         android:id="@+id/profile_photo"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/profile_image"
         app:srcCompat="@drawable/flag_china"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="@id/profile_photo"
         android:layout_marginStart="16dp" />
 
-    <Switch
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/repeat_words"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,14 +36,26 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
 
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/synchronization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/synchronization"
+        app:layout_constraintTop_toBottomOf="@id/repeat_words"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="username"
         android:ems="10"
         android:inputType="text"
         android:text="@string/placeholder"
-        app:layout_constraintTop_toBottomOf="@id/repeat_words"
+        app:layout_constraintTop_toBottomOf="@id/synchronization"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
