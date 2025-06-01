@@ -2,20 +2,18 @@ package com.zyuniversita.ui.setup
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
+import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.zyuniversita.ui.databinding.ActivitySetupBinding
 import com.zyuniversita.ui.main.mainactivity.MainActivity
+import com.zyuniversita.ui.main.mainactivity.mainenum.ApplicationFragmentFactory
+import com.zyuniversita.ui.main.mainactivity.mainenum.Page
 import com.zyuniversita.ui.setup.uistate.SetupEvent
-import com.zyuniversita.ui.setup.uistate.SetupUiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -48,42 +46,11 @@ class SetupActivity() : AppCompatActivity() {
         viewModel.checkDatabase()
         viewModel.loadLanguage()
 
-        collectUiState()
         collectEvents()
-        initListeners()
 
-        _binding.progressBar.setProgress(0, true)
+//        _binding.progressBar.setProgress(0, true)
     }
 
-     /* ---------- UI State Collection and Rendering ---------- */
-
-    private fun collectUiState() = lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.uiState.collect {
-                render(it)
-            }
-        }
-    }
-
-    private fun render(state: SetupUiState) = with(_binding) {
-
-        if (state.isUsernameMissing) {
-            // First time visit: set username and enter button
-            setUsername.isVisible = true
-            enterButton.isVisible = true
-
-        } else {
-            // Otherwise: everything is hidden
-            setUsername.isGone = true
-            enterButton.isGone = true
-            usernameSetting.isGone = true
-
-            // Loading text
-            progressBar.isVisible = true
-        }
-
-        _binding.progressBar.setProgress(state.percentage, true)
-    }
 
     /* ---------- One-Shot Event Collection ---------- */
 
@@ -93,28 +60,11 @@ class SetupActivity() : AppCompatActivity() {
                 delay(2000)
                 when (event) {
                     SetupEvent.NavigateToHome -> goToHomePage()
+                    SetupEvent.NavigateToRegister -> changeFragment(Page.REGISTER)
+                    SetupEvent.NavigateToLogin -> changeFragment(Page.LOGIN)
+                    SetupEvent.NavigateToLocalRegister -> changeFragment(Page.LOCAL_REGISTER)
                 }
             }
-        }
-    }
-
-    /* ---------- Listener Initialization (User Interaction) ---------- */
-
-    private fun initListeners() = with(_binding) {
-
-        // The enter button is enabled only when the username is not empty
-        setUsername.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                enterButton.isEnabled = !s.isNullOrBlank()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        // Button listener to send username to the view model
-        enterButton.setOnClickListener {
-            viewModel.onUsernameConfirmed(setUsername.text.toString())
         }
     }
 
@@ -125,5 +75,18 @@ class SetupActivity() : AppCompatActivity() {
         startActivity(goToTheHome)
 
         finish()
+    }
+
+    private fun changeFragment(page: Page) {
+        supportFragmentManager.commit {
+            val navFragment = ApplicationFragmentFactory.getPageClass(page).simpleName
+            replace(
+                _binding.fragmentContainerView.id,
+                ApplicationFragmentFactory.getPage(page),
+                navFragment
+            )
+            
+            setReorderingAllowed(true)
+        }
     }
 }
