@@ -30,7 +30,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
  * @param context Application context required to access the DataStore instance.
  */
 class PreferencesRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
 ) : PreferencesRepository {
 
     companion object {
@@ -48,6 +48,8 @@ class PreferencesRepositoryImpl @Inject constructor(
 
         private val APP_OPENED = booleanPreferencesKey("app_opened")
         private val LAST_OPENED_TIME = longPreferencesKey("last_opened_time")
+
+        private val SYNCHRONIZATION = booleanPreferencesKey("synchronization")
     }
 
     /**
@@ -126,6 +128,11 @@ class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
+    override val hasAppBeenOpened: Flow<Boolean>
+        get() = context.dataStore.data
+            .map { preferences -> preferences[APP_OPENED] ?: false }
+
+
     override suspend fun saveAppOpened() {
         context.dataStore.edit { preferences ->
             preferences[APP_OPENED] = true
@@ -133,8 +140,15 @@ class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
-    override val hasAppBeenOpened: Flow<Boolean>
-        get() = context.dataStore.data
-            .map { preferences -> preferences[APP_OPENED] ?: false }
+    override val hasSynchronization: Flow<Boolean>
+        get() = context.dataStore.data.map { preferences ->
+            preferences[SYNCHRONIZATION] ?: false
+        }
 
+    override suspend fun changeSynchronization(status: Boolean): Unit {
+        context.dataStore.edit { preferences ->
+            preferences[SYNCHRONIZATION] = status
+
+        }
+    }
 }

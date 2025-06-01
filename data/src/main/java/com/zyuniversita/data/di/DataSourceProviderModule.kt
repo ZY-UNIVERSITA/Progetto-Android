@@ -1,7 +1,11 @@
 package com.zyuniversita.data.di
 
+import com.zyuniversita.data.remote.authentication.RemoteAuthenticationDataSource
+import com.zyuniversita.data.remote.authentication.RemoteAuthenticationDataSourceImpl
 import com.zyuniversita.data.remote.imagerecognition.RemoteImageRecognitionDataSource
 import com.zyuniversita.data.remote.imagerecognition.RemoteImageRecognitionDataSourceImpl
+import com.zyuniversita.data.remote.synchronization.RemoteSynchronizationDataSource
+import com.zyuniversita.data.remote.synchronization.RemoteSynchronizationDataSourceImpl
 import com.zyuniversita.data.remote.wordDatabase.RemoteWordDatabaseDataSource
 import com.zyuniversita.data.remote.wordDatabase.RemoteWordDatabaseDataSourceImpl
 import dagger.Binds
@@ -49,4 +53,17 @@ abstract class DataSourceProviderModule {
     abstract fun bindRemoteImageRecognitionDataSource(
         remoteImageRecognitionDataSourceImpl: RemoteImageRecognitionDataSourceImpl
     ): RemoteImageRecognitionDataSource
+
+
+    @Binds
+    @Singleton
+    abstract fun bindRemoteAuthenticationDataSource(
+        remoteAuthenticationDataSourceImpl: RemoteAuthenticationDataSourceImpl
+    ): RemoteAuthenticationDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindRemoteSynchronizationDataSource(
+        remoteSynchronizationDataSourceImpl: RemoteSynchronizationDataSourceImpl
+    ): RemoteSynchronizationDataSource
 }

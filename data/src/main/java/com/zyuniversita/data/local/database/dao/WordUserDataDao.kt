@@ -26,6 +26,9 @@ interface WordUserDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: WordUserDataEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(data: List<WordUserDataEntity>)
+
     /**
      * Inserts a new entry into the word_user_data table with the specified values.
      *
@@ -80,6 +83,14 @@ interface WordUserDataDao {
         lastSeen: Long = System.currentTimeMillis()
     ): Int
 
+    @Query(
+        """
+            SELECT *
+            FROM word_user_data
+        """
+    )
+    suspend fun getAllUserData(): List<WordUserDataEntity>
+
     /**
      * Retrieves the word user data for a specific [wordId].
      *
@@ -113,4 +124,12 @@ interface WordUserDataDao {
         """
     )
     suspend fun setSelected(wordId: Int, isSelected: Boolean): Int
+
+    @Query(
+        """
+                DELETE
+                FROM word_user_data
+        """
+    )
+    suspend fun deleteAllEntries()
 }

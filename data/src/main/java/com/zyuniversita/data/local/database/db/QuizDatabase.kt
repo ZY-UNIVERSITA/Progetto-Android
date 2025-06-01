@@ -1,6 +1,7 @@
 package com.zyuniversita.data.local.database.db
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,6 +12,7 @@ import com.zyuniversita.data.local.database.dao.UserInfoDao
 import com.zyuniversita.data.local.database.dao.UserQuizPerformanceDao
 import com.zyuniversita.data.local.database.dao.WordDao
 import com.zyuniversita.data.local.database.dao.WordUserDataDao
+import com.zyuniversita.data.local.database.db.QuizDatabase.Companion.getInstance
 import com.zyuniversita.data.local.database.entities.LanguageEntity
 import com.zyuniversita.data.local.database.entities.LevelEntity
 import com.zyuniversita.data.local.database.entities.UserInfoEntity
@@ -97,6 +99,10 @@ abstract class QuizDatabase : RoomDatabase() {
                     QuizDatabase::class.java,
                     "quiz_database"
                 )
+                    .setQueryCallback({ sqlQuery, bindArgs ->
+                    Log.d("SQL_QUERY", "Query: $sqlQuery, Args: $bindArgs")
+                }, Executors.newSingleThreadExecutor())
+
                     .fallbackToDestructiveMigration(false)
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
