@@ -17,4 +17,7 @@ interface PreferencesRepository {
 
     val hasAppBeenOpened: Flow<Boolean>
     suspend fun saveAppOpened(): Unit
+
+    val hasSynchronization: Flow<Boolean>
+    suspend fun changeSynchronization(status: Boolean): Unit
 }
