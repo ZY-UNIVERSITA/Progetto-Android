@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zyuniversita.domain.model.AvailableLanguage
-import com.zyuniversita.ui.R
 import com.zyuniversita.ui.databinding.LanguageListCardViewBinding
+import com.zyuniversita.ui.utils.mapper.FlagMapper
 
 
 class LanguageListAdapter(
     private val availableLanguage: MutableList<AvailableLanguage>,
-    private val selectLanguage: (String) -> Unit
+    private val selectLanguage: (String) -> Unit,
+    private val flagMapper: FlagMapper
 ) : RecyclerView.Adapter<LanguageListAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val languageListCardViewBinding: LanguageListCardViewBinding) :
@@ -19,7 +20,7 @@ class LanguageListAdapter(
         fun bind(language: AvailableLanguage) {
             with(languageListCardViewBinding) {
                 nameFlag.text = language.languageName
-                imageFlag.setImageResource(flagBind(language.code))
+                imageFlag.setImageResource(flagMapper.flagBind(language.code))
 
                 root.setOnClickListener(null)
                 root.setOnClickListener {
@@ -27,14 +28,6 @@ class LanguageListAdapter(
                 }
             }
         }
-
-        private fun flagBind(languageFlag: String): Int =
-            when (languageFlag) {
-                "ch" -> R.drawable.flag_china
-                "jp" -> R.drawable.flag_japan
-                "kr" -> R.drawable.flag_korea
-                else -> R.drawable.flag_china
-            }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

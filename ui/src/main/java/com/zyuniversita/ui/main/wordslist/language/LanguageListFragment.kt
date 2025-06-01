@@ -17,8 +17,10 @@ import com.zyuniversita.ui.databinding.FragmentLanguageListForWordsListBinding
 import com.zyuniversita.ui.main.mainactivity.MainActivityViewModel
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page
 import com.zyuniversita.ui.main.wordslist.language.uistate.LanguageListEvent
+import com.zyuniversita.ui.utils.mapper.FlagMapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LanguageListFragment : Fragment() {
@@ -30,6 +32,8 @@ class LanguageListFragment : Fragment() {
     private val viewModel: LanguageListViewModel by viewModels()
 
     private val activityViewModel: MainActivityViewModel by activityViewModels<MainActivityViewModel>()
+
+    private lateinit var flagMapper: FlagMapper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +48,8 @@ class LanguageListFragment : Fragment() {
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
         binding.recycleView.adapter = LanguageListAdapter(
             mutableListOf(),
-            viewModel::selectLanguage
+            viewModel::selectLanguage,
+            flagMapper
         )
 
         viewModel.fetchData()
@@ -92,5 +97,10 @@ class LanguageListFragment : Fragment() {
         (binding.recycleView.adapter as? LanguageListAdapter)?.updateList(
             newList = list
         )
+    }
+
+    @Inject
+    fun setFlagMapper(flagMapper: FlagMapper) {
+        this.flagMapper = flagMapper
     }
 }
