@@ -4,4 +4,7 @@ package com.zyuniversita.ui.setup.uistate
 sealed interface SetupEvent {
     // Singleton
     data object NavigateToHome : SetupEvent
+    data object NavigateToRegister: SetupEvent
+    data object NavigateToLocalRegister: SetupEvent
+    data object NavigateToLogin: SetupEvent
 }

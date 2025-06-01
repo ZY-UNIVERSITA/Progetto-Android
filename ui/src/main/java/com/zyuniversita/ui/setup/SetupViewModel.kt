@@ -14,6 +14,8 @@ import com.zyuniversita.domain.usecase.worddatabase.FetchLatestDatabaseVersionUs
 import com.zyuniversita.domain.usecase.worddatabase.UpdateWordDatabaseUseCase
 import com.zyuniversita.domain.usecase.worker.RemoveNotificationWorkerUseCase
 import com.zyuniversita.domain.usecase.worker.StartNotificationWorkerUseCase
+import com.zyuniversita.domain.usecase.worker.StartSynchronizationWorkerUseCase
+import com.zyuniversita.ui.main.mainactivity.mainenum.Page
 import com.zyuniversita.ui.setup.uistate.SetupEvent
 import com.zyuniversita.ui.setup.uistate.SetupUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +46,9 @@ class SetupViewModel @Inject constructor(
     private val startFetchLanguageUseCase: StartFetchLanguageUseCase,
 
     private val startNotificationWorkerUseCase: StartNotificationWorkerUseCase,
-    private val removeNotificationWorkerUseCase: RemoveNotificationWorkerUseCase
+    private val removeNotificationWorkerUseCase: RemoveNotificationWorkerUseCase,
+
+    private val startSynchronizationWorkerUseCase: StartSynchronizationWorkerUseCase
 ) : ViewModel() {
 
     /* ---------------- UI State ---------------- */
@@ -92,21 +96,38 @@ class SetupViewModel @Inject constructor(
 
             name?.let {
                 updateUserId()
-            }
+            } ?: _event.send(SetupEvent.NavigateToLogin)
         }
     }
 
-    fun onUsernameConfirmed(name: String) {
+    fun onUsernameConfirmed(userId: Long?, username: String) {
         viewModelScope.launch {
-            // Update the username
-            val userId: Long = insertNewUserUseCase(name)
-            setUserIdUseCase(userId)
+            // Update the id
+            if (userId == null) {
+                val userIdDB: Long = insertNewUserUseCase(userId, username)
+                setUserIdUseCase(userIdDB)
+            } else {
+                setUserIdUseCase(userId)
+            }
+
             updateUserId()
         }
 
         viewModelScope.launch {
-            setUsernameUseCase(name)
-            updateUsername(name)
+            // update the username
+            setUsernameUseCase(username)
+            updateUsername(username)
+        }
+    }
+
+    fun changePage(page: Page) {
+        viewModelScope.launch {
+            when (page) {
+                Page.LOGIN -> _event.send(SetupEvent.NavigateToLogin)
+                Page.REGISTER -> _event.send(SetupEvent.NavigateToRegister)
+                Page.LOCAL_REGISTER -> _event.send(SetupEvent.NavigateToLocalRegister)
+                else -> throw IllegalArgumentException("Page not supported")
+            }
         }
     }
 
