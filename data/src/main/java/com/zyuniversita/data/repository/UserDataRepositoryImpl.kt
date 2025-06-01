@@ -8,12 +8,14 @@ import com.zyuniversita.data.local.database.entities.WordUserDataEntity
 import com.zyuniversita.data.utils.mapper.DataMapper
 import com.zyuniversita.domain.model.userdata.GeneralUserStats
 import com.zyuniversita.domain.model.userdata.GeneratedWordsStats
+import com.zyuniversita.domain.model.userdata.UserQuizPerformanceStats
+import com.zyuniversita.domain.model.userdata.WordsUserData
 import com.zyuniversita.domain.repository.UserDataRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -29,19 +31,32 @@ import javax.inject.Inject
  */
 class UserDataRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val dataMapper: DataMapper
+    private val dataMapper: DataMapper,
 ) : UserDataRepository {
 
     private val wordUserDataDao = QuizDatabase.getInstance(context = context).wordUserDataDao()
     private val userInfoDao = QuizDatabase.getInstance(context = context).userInfoDao()
-    private val quizPerformanceDao = QuizDatabase.getInstance(context = context).userQuizPerformanceDao()
+    private val quizPerformanceDao =
+        QuizDatabase.getInstance(context = context).userQuizPerformanceDao()
 
-    private val _generalUserStats: MutableSharedFlow<List<GeneralUserStats>> = MutableSharedFlow(1)
+    private val _generalUserStats: MutableStateFlow<List<GeneralUserStats>> = MutableStateFlow(
+        listOf()
+    )
 
     /**
      * A flow that emits aggregated user quiz performance data mapped to [GeneralUserStats].
      */
-    override val generalUserStats: SharedFlow<List<GeneralUserStats>> = _generalUserStats.asSharedFlow()
+    override val generalUserStats: StateFlow<List<GeneralUserStats>> =
+        _generalUserStats.asStateFlow()
+
+
+    private val _wordsUserData: MutableStateFlow<List<WordsUserData>> = MutableStateFlow(listOf())
+    override val wordsUserData: StateFlow<List<WordsUserData>> = _wordsUserData.asStateFlow()
+
+    private val _userQuizPerformance: MutableStateFlow<List<UserQuizPerformanceStats>> =
+        MutableStateFlow(listOf())
+    override val userQuizPerformance: StateFlow<List<UserQuizPerformanceStats>> =
+        _userQuizPerformance.asStateFlow()
 
     /**
      * Updates the selection status of multiple words in the user's data.
@@ -98,9 +113,12 @@ class UserDataRepositoryImpl @Inject constructor(
      * @param username The username of the new user.
      * @return The ID of the newly inserted user.
      */
-    override suspend fun insertNewUser(username: String): Long {
+    override suspend fun insertNewUser(userId: Long?, username: String): Long {
         return withContext(Dispatchers.IO) {
-            val userInfo: UserInfoEntity = UserInfoEntity(username = username)
+            val userInfo: UserInfoEntity = userId?.let {
+                UserInfoEntity(userId = userId.toInt(), username = username)
+            } ?: UserInfoEntity(username = username)
+
             val result: Long = userInfoDao.insertUser(userInfo)
             result
         }
@@ -128,7 +146,7 @@ class UserDataRepositoryImpl @Inject constructor(
 
             if (result == 0) {
                 val newUser: UserQuizPerformanceEntity = UserQuizPerformanceEntity(
-                    userId = userId,
+                    userId = userId.toInt(),
                     languageCode = languageCode,
                     correctAnswer = correctAnswer,
                     wrongAnswer = wrongAnswer
@@ -154,5 +172,69 @@ class UserDataRepositoryImpl @Inject constructor(
 
             _generalUserStats.emit(mappedUserStatsList)
         }
+    }
+
+    override suspend fun getWordsUserData() {
+        withContext(Dispatchers.IO) {
+            val userDataList = wordUserDataDao.getAllUserData()
+
+            val mappedUserStatsList = withContext(Dispatchers.Default) {
+                userDataList.map(dataMapper::fromWordUserDataEntityToWordsUserData)
+            }
+
+            _wordsUserData.emit(mappedUserStatsList)
+
+        }
+    }
+
+    override suspend fun deleteWordsDataByUserID(userID: Long) {
+        withContext(Dispatchers.IO) {
+            wordUserDataDao.deleteAllEntries()
+        }
+    }
+
+    override suspend fun deleteUserDataByUserID(userID: Long) {
+        withContext(Dispatchers.IO) {
+            quizPerformanceDao.deleteAllEntriesByUserID(userID)
+        }
+    }
+
+    override suspend fun insertAllUserDataByUserID(
+        userID: Long,
+        userData: List<UserQuizPerformanceStats>,
+    ) {
+        withContext(Dispatchers.IO) {
+            val mappedData = userData.map { data ->
+                dataMapper.fromGeneralUserStatsToUserQuizPerformanceWithLanguageEntity(
+                    userID,
+                    data
+                )
+            }
+
+            quizPerformanceDao.insertAll(mappedData)
+        }
+    }
+
+    override suspend fun insertAllWordsDataByUserID(userID: Long, wordsData: List<WordsUserData>) {
+        withContext(Dispatchers.IO) {
+            val mappedData =
+                wordsData.map(dataMapper::fromWordsUserDataToWordUserDataEntity)
+
+            wordUserDataDao.insertAll(mappedData)
+        }
+    }
+
+    override suspend fun getUserDataQuizPerformanceByUserID(userID: Long) {
+        withContext(Dispatchers.IO) {
+            val dataPerformance =
+                quizPerformanceDao.getUserDataPerformanceByUserId(userID)
+
+            val mappedData = withContext(Dispatchers.Default) {
+                dataPerformance.map(dataMapper::fromUserQuizPerformanceEntityToUserQuizPerformanceStats)
+            }
+
+            _userQuizPerformance.emit(mappedData)
+        }
+
     }
 }
