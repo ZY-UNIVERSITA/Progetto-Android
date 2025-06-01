@@ -11,5 +11,6 @@ package com.zyuniversita.domain.model.settings
  */
 data class SettingsToSave(
     val username: String,
-    val repetition: Boolean
+    val repetition: Boolean,
+    val synchronization: Boolean
 )
