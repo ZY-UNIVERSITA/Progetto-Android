@@ -50,6 +50,7 @@ class SettingsActivity() : AppCompatActivity() {
     private fun collectAllData() {
         collectUsername()
         collectRepetition()
+        collectSynchro()
         collectUiEvent()
     }
 
@@ -66,6 +67,15 @@ class SettingsActivity() : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.wordRepetition.filterNotNull().collect { repetition ->
                 binding.repeatWords.isChecked = repetition
+            }
+
+        }
+    }
+
+    private fun collectSynchro() {
+        lifecycleScope.launch {
+            viewModel.synchronization.filterNotNull().collect { repetition ->
+                binding.synchronization.isChecked = repetition
             }
 
         }

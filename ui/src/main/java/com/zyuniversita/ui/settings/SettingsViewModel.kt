@@ -93,9 +93,6 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             setSynchronizationUseCase(newSettings.synchronization)
 
-            // TODO
-            // UPDATE PREFERENCES
-
             if (newSettings.synchronization) {
                 startSynchronizationWorkerUseCase()
             } else {
