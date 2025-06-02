@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.zyuniversita.ui.databinding.HomepageMainFragmentBinding
+import com.zyuniversita.ui.databinding.FragmentHomepageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomePageFragment: Fragment() {
-    private var _binding: HomepageMainFragmentBinding? = null
+    private var _binding: FragmentHomepageBinding? = null
     private val binding get() = _binding!!
 
     private val TAG: String = "Homepage Main fragment TAG"
@@ -23,7 +23,7 @@ class HomePageFragment: Fragment() {
     ): View {
         Log.d(TAG, "Fragment created")
 
-        _binding = HomepageMainFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentHomepageBinding.inflate(inflater, container, false)
         val view = binding.root
 
         return view
