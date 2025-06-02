@@ -1,5 +1,7 @@
 package com.zyuniversita.domain.di
 
+import com.zyuniversita.domain.usecase.assetsreader.ReadWordsFileUseCase
+import com.zyuniversita.domain.usecase.assetsreader.ReadWordsFileUseCaseImpl
 import com.zyuniversita.domain.usecase.imagerecognition.UploadImageToRecognizeUseCase
 import com.zyuniversita.domain.usecase.imagerecognition.UploadImageToRecognizeUseCaseImpl
 import com.zyuniversita.domain.usecase.languages.FetchLanguageUseCase
@@ -289,4 +291,10 @@ abstract class UseCaseModule {
     abstract fun bindRemoveNotificationWorkerUseCase(
         removeNotificationWorkerUseCaseImpl: RemoveNotificationWorkerUseCaseImpl
     ): RemoveNotificationWorkerUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindReadWordsFileUseCase(
+        readWordsFileUseCaseImpl: ReadWordsFileUseCaseImpl
+    ): ReadWordsFileUseCase
 }
