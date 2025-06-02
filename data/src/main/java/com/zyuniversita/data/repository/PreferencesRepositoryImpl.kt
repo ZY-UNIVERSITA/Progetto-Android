@@ -1,6 +1,7 @@
 package com.zyuniversita.data.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -37,6 +38,9 @@ class PreferencesRepositoryImpl @Inject constructor(
         // Key to store/retrieve the user's username.
         private val USERNAME = stringPreferencesKey("username")
 
+        // Key to store/retrieve the user's email.
+        private val EMAIL = stringPreferencesKey("email")
+
         // Key to store/retrieve the user's unique ID.
         private val USER_ID = longPreferencesKey("user_id")
 
@@ -72,6 +76,63 @@ class PreferencesRepositoryImpl @Inject constructor(
     }
 
     /**
+     * Removes the stored username from the DataStore.
+     * After this call, [getUsername] will emit null until a new username is set.
+     */
+    override suspend fun removeUsername() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(USERNAME)
+        }
+    }
+
+    /**
+     * Flow that emits the stored email, or null if not set.
+     */
+    override val getEmail: Flow<String?>
+        get() = context.dataStore.data
+            .map { preferences ->
+                preferences[EMAIL]
+            }
+
+    /**
+     * Stores the provided [email] into the DataStore.
+     *
+     * @param email The email to persist.
+     */
+    override suspend fun setEmail(email: String) {
+        context.dataStore.edit { preferences ->
+            preferences[EMAIL] = email
+        }
+    }
+
+    /**
+     * Removes the stored email from the DataStore.
+     * After this call, [getEmail] will emit null until a new email is set.
+     */
+    override suspend fun removeEmail() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(EMAIL)
+        }
+    }
+
+    override suspend fun resetPreferences() {
+        // Remove everything in 1 transactions
+        // Remove all or don't remove any keys and it's more efficient
+        try {
+            context.dataStore.edit { preferences ->
+                preferences.remove(USERNAME)
+                preferences.remove(USER_ID)
+                preferences.remove(WORD_REPETITION)
+                preferences.remove(APP_OPENED)
+                preferences.remove(SYNCHRONIZATION)
+                preferences.remove(EMAIL)
+            }
+        } catch (e: Exception) {
+            Log.e("TAG", "errore ${e.message}")
+        }
+    }
+
+    /**
      * Flow that emits the stored user ID, or null if not set.
      */
     override val getUserId: Flow<Long?>
@@ -87,6 +148,12 @@ class PreferencesRepositoryImpl @Inject constructor(
     override suspend fun setUserId(userId: Long) {
         context.dataStore.edit { preferences ->
             preferences[USER_ID] = userId
+        }
+    }
+
+    override suspend fun removeUserId() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(USER_ID)
         }
     }
 
@@ -128,6 +195,12 @@ class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun removeWordRepetition() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(WORD_REPETITION)
+        }
+    }
+
     override val hasAppBeenOpened: Flow<Boolean>
         get() = context.dataStore.data
             .map { preferences -> preferences[APP_OPENED] ?: false }
@@ -137,6 +210,12 @@ class PreferencesRepositoryImpl @Inject constructor(
         context.dataStore.edit { preferences ->
             preferences[APP_OPENED] = true
             preferences[LAST_OPENED_TIME] = System.currentTimeMillis()
+        }
+    }
+
+    override suspend fun removeHasAppBeenOpened() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(APP_OPENED)
         }
     }
 
@@ -151,4 +230,12 @@ class PreferencesRepositoryImpl @Inject constructor(
 
         }
     }
+
+    override suspend fun removeHasSynchronization() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(SYNCHRONIZATION)
+        }
+    }
+
+
 }
