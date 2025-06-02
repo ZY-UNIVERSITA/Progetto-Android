@@ -20,7 +20,7 @@ import javax.inject.Inject
 class QuizApplication : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory: HiltWorkerFactory   // ← è quella che hai nel @Provides
+    lateinit var workerFactory: HiltWorkerFactory
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
@@ -30,9 +30,5 @@ class QuizApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
 
-        // TODO: delete later
-        // UseCaseProvider.setup(
-        //     repositoryProvider = RepositoryProviderImpl(context = this.applicationContext)
-        // )
     }
 }
