@@ -16,6 +16,7 @@ import com.zyuniversita.ui.main.wordslist.language.LanguageListFragment
 import com.zyuniversita.ui.main.wordslist.singleword.SingleWordFragment
 import com.zyuniversita.ui.main.wordslist.words.WordsListFragment
 import com.zyuniversita.ui.settings.SettingsActivity
+import com.zyuniversita.ui.setup.SetupActivity
 import com.zyuniversita.ui.setup.local.LocalRegisterFragment
 import com.zyuniversita.ui.setup.login.LoginFragment
 import com.zyuniversita.ui.setup.registration.RegisterFragment
@@ -39,7 +40,8 @@ enum class Page {
     GAME_MULTIPLE_CHOOSING_INV,
     GAME_WRITING,
     GAME_LINKING,
-    SETTINGS;
+    SETTINGS,
+    SETUP;
 }
 
 object ApplicationFragmentFactory {
@@ -76,7 +78,8 @@ object ApplicationActivityFactory {
     private val pageMap: Map<Page, Class<out Activity>> = mapOf(
         Page.GAME_MULTIPLE_CHOOSING to GameActivity::class.java,
         Page.GAME_WRITING to GameActivity::class.java,
-        Page.SETTINGS to SettingsActivity::class.java
+        Page.SETTINGS to SettingsActivity::class.java,
+        Page.SETUP to SetupActivity::class.java
     )
 
     fun getPageClass(page: Page): Class<out Activity> {
