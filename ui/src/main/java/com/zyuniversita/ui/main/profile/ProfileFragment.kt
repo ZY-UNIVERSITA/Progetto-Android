@@ -104,6 +104,13 @@ class ProfileFragment : Fragment() {
                 activityViewModel.changeActivity(Page.SETTINGS)
             }
         }
+
+        binding.logoutButton.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.logout()
+                activityViewModel.changeActivity(Page.SETUP)
+            }
+        }
     }
 
     override fun onDestroyView() {

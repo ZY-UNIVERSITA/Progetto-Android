@@ -14,7 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import com.zyuniversita.ui.databinding.FragmentWordsListForWordsListBinding
 import com.zyuniversita.ui.main.mainactivity.MainActivityViewModel
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page

@@ -2,7 +2,7 @@ package com.zyuniversita.ui.main.wordslist.words
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import com.zyuniversita.domain.usecase.mapping.GroupWordsByLevelUseCase
 import com.zyuniversita.domain.usecase.singleword.StartFetchSingleWordProgressUseCase
 import com.zyuniversita.domain.usecase.wordslist.FetchWordsByLanguageGeneralListUseCase
