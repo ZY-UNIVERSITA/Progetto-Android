@@ -2,7 +2,7 @@ package com.zyuniversita.ui.games.abstracts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.model.userdata.GeneratedWordsStats
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase

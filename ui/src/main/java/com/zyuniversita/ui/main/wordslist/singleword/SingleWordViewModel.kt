@@ -2,7 +2,7 @@ package com.zyuniversita.ui.main.wordslist.singleword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.usecase.singleword.FetchSingleWordProgressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

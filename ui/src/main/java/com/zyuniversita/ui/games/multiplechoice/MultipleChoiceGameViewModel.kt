@@ -1,6 +1,6 @@
 package com.zyuniversita.ui.games.multiplechoice
 
-import com.zyuniversita.domain.model.MultipleChoiceQuestion
+import com.zyuniversita.domain.model.words.MultipleChoiceQuestion
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase
 import com.zyuniversita.domain.usecase.question.GenerateMultipleChoiceQuestionUseCase

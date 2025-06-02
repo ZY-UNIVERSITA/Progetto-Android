@@ -1,7 +1,7 @@
 package com.zyuniversita.domain.repository
 
-import com.zyuniversita.domain.model.Word
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.Word
+import com.zyuniversita.domain.model.words.WordProgress
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 

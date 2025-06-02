@@ -1,6 +1,6 @@
 package com.zyuniversita.ui.games.writing
 
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase
 import com.zyuniversita.domain.usecase.question.GenerateWritingQuestionUseCase

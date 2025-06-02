@@ -1,4 +1,4 @@
-package com.zyuniversita.domain.model
+package com.zyuniversita.domain.model.words
 
 /**
  * Represents the user's learning progress for a specific [Word].

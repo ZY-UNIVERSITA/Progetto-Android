@@ -1,7 +1,7 @@
 package com.zyuniversita.domain.usecase.question
 
-import com.zyuniversita.domain.model.MultipleChoiceQuestion
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.MultipleChoiceQuestion
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.repository.QuizWordRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject

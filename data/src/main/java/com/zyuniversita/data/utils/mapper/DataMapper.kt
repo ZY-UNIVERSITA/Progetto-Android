@@ -9,9 +9,9 @@ import com.zyuniversita.data.local.database.relations.WordWithUserData
 import com.zyuniversita.data.remote.authentication.model.AuthenticationResponse
 import com.zyuniversita.data.remote.synchronization.model.DownloadedUserData
 import com.zyuniversita.data.remote.wordDatabase.model.WordDatabaseEntity
-import com.zyuniversita.domain.model.AvailableLanguage
-import com.zyuniversita.domain.model.Word
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.AvailableLanguage
+import com.zyuniversita.domain.model.words.Word
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.model.authentication.AuthenticationResponseEnum
 import com.zyuniversita.domain.model.authentication.AuthenticationResponseInfo
 import com.zyuniversita.domain.model.synchronization.SynchronizationResponseEnum

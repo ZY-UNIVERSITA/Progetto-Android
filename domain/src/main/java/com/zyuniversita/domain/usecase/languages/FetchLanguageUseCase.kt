@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.languages
 
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.domain.repository.LanguageRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject

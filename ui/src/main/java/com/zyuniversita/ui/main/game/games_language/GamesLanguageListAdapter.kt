@@ -3,7 +3,7 @@ package com.zyuniversita.ui.main.game.games_language
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.ui.databinding.LanguageListCardViewBinding
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page
 import com.zyuniversita.ui.utils.mapper.FlagMapper

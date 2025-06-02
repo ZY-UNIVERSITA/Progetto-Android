@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.zyuniversita.domain.model.MultipleChoiceQuestion
+import com.zyuniversita.domain.model.words.MultipleChoiceQuestion
 import com.zyuniversita.ui.databinding.FragmentMultipleChoiceGameBinding
 import com.zyuniversita.ui.games.main.GameViewModel
 import com.zyuniversita.ui.games.writing.uistate.GameEvents
