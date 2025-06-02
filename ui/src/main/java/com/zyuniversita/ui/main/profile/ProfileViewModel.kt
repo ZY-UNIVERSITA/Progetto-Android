@@ -5,9 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.zyuniversita.domain.model.userdata.GeneralUserStats
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchUsernameUseCase
-import com.zyuniversita.domain.usecase.synchronization.DownloadUserDataUseCase
+import com.zyuniversita.domain.usecase.profile.RemoveAllPreferencesUseCase
+import com.zyuniversita.domain.usecase.userdata.DeleteAllUserDataEntriesUseCase
+import com.zyuniversita.domain.usecase.userdata.DeleteAllWordsDataEntriesUseCase
 import com.zyuniversita.domain.usecase.userdata.FetchUserGeneralStatsUseCase
-import com.zyuniversita.domain.usecase.userdata.InsertAllUserDataEntriesUseCase
 import com.zyuniversita.domain.usecase.userdata.StartFetchUserGeneralStatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +26,9 @@ class ProfileViewModel @Inject constructor(
     private val startFetchUserGeneralStatsUseCase: StartFetchUserGeneralStatsUseCase,
     private val fetchUserGeneralStatsUseCase: FetchUserGeneralStatsUseCase,
 
-    private val downloadUserDataUseCase: DownloadUserDataUseCase,
-    private val insertAllUserDataEntriesUseCase: InsertAllUserDataEntriesUseCase
+    private val removeAllPreferencesUseCase: RemoveAllPreferencesUseCase,
+    private val deleteAllUserDataEntriesUseCase: DeleteAllUserDataEntriesUseCase,
+    private val deleteAllWordsDataEntriesUseCase: DeleteAllWordsDataEntriesUseCase,
 ) :
     ViewModel() {
     private val _userId: MutableStateFlow<Long?> = MutableStateFlow<Long?>(null)
@@ -46,12 +48,6 @@ class ProfileViewModel @Inject constructor(
             fetchUserIdUseCase().first().let { userId ->
                 _userId.emit(userId)
             }
-
-//            val response = downloadUserDataUseCase(2)
-//
-//            if (response.response == SynchronizationResponseEnum.SUCCESS) {
-//                insertAllUserDataEntriesUseCase(2, response.data.userData)
-//            }
         }
     }
 
@@ -70,5 +66,14 @@ class ProfileViewModel @Inject constructor(
             val username = fetchUsernameUseCase().first()
             _username.emit(username)
         }
+    }
+
+    suspend fun logout() {
+        val id = userId.filterNotNull().first()
+
+        deleteAllUserDataEntriesUseCase(id)
+        deleteAllWordsDataEntriesUseCase(id)
+        removeAllPreferencesUseCase()
+
     }
 }

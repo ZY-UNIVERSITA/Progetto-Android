@@ -59,4 +59,5 @@
     <string name="login">Login</string>
     <string name="continue_without_registration">Continue without registration</string>
     <string name="synchronization">Synchronization</string>
+    <string name="logout">Logout</string>
 </resources>
