@@ -1,5 +1,7 @@
 package com.zyuniversita.data.di
 
+import com.zyuniversita.data.local.assets.ReadWordsFileDataSource
+import com.zyuniversita.data.local.assets.ReadWordsFileDataSourceImpl
 import com.zyuniversita.data.remote.authentication.RemoteAuthenticationDataSource
 import com.zyuniversita.data.remote.authentication.RemoteAuthenticationDataSourceImpl
 import com.zyuniversita.data.remote.imagerecognition.RemoteImageRecognitionDataSource
@@ -66,4 +68,10 @@ abstract class DataSourceProviderModule {
     abstract fun bindRemoteSynchronizationDataSource(
         remoteSynchronizationDataSourceImpl: RemoteSynchronizationDataSourceImpl
     ): RemoteSynchronizationDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindReadWordsFileDataSource(
+        readWordsFileDataSourceImpl: ReadWordsFileDataSourceImpl
+    ): ReadWordsFileDataSource
 }

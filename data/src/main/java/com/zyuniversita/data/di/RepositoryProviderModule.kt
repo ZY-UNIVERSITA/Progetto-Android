@@ -1,5 +1,6 @@
 package com.zyuniversita.data.di
 
+import com.zyuniversita.data.repository.AssetsReaderRepositoryImpl
 import com.zyuniversita.data.repository.AuthenticationRepositoryImpl
 import com.zyuniversita.data.repository.ImageRecognitionRepositoryImpl
 import com.zyuniversita.data.repository.LanguageRepositoryImpl
@@ -8,6 +9,7 @@ import com.zyuniversita.data.repository.QuizWordRepositoryImpl
 import com.zyuniversita.data.repository.SynchronizationRepositoryImpl
 import com.zyuniversita.data.repository.UserDataRepositoryImpl
 import com.zyuniversita.data.repository.WorkerRepositoryImpl
+import com.zyuniversita.domain.repository.AssetsReaderRepository
 import com.zyuniversita.domain.repository.AuthenticationRepository
 import com.zyuniversita.domain.repository.ImageRecognitionRepository
 import com.zyuniversita.domain.repository.LanguageRepository
@@ -110,5 +112,11 @@ abstract class RepositoryProviderModule {
     abstract fun bindSynchronizationRepository(
         synchronizationRepositoryImpl: SynchronizationRepositoryImpl
     ): SynchronizationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAssetsReaderRepository(
+        assetsReaderRepositoryImpl: AssetsReaderRepositoryImpl
+    ): AssetsReaderRepository
 }
 
