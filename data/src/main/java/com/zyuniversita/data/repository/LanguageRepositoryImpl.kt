@@ -5,7 +5,7 @@ import com.zyuniversita.data.local.database.db.QuizDatabase
 import com.zyuniversita.data.local.database.entities.LanguageEntity
 import com.zyuniversita.data.local.jsonData.LanguageDataSource
 import com.zyuniversita.data.utils.mapper.DataMapper
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.domain.repository.LanguageRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers

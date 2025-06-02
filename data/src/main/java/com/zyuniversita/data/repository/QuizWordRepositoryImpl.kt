@@ -3,11 +3,10 @@ package com.zyuniversita.data.repository
 import android.content.Context
 import com.zyuniversita.data.local.database.db.QuizDatabase
 import com.zyuniversita.data.local.database.entities.WordEntity
-import com.zyuniversita.data.local.database.relations.WordWithUserData
 import com.zyuniversita.data.remote.wordDatabase.RemoteWordDatabaseDataSource
 import com.zyuniversita.data.utils.mapper.DataMapper
-import com.zyuniversita.domain.model.Word
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.Word
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.repository.QuizWordRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope

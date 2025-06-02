@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.words
 
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import com.zyuniversita.domain.repository.QuizWordRepository
 import kotlinx.coroutines.flow.StateFlow
 

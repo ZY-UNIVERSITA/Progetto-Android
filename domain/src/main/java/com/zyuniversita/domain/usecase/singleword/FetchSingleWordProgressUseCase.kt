@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.singleword
 
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.repository.QuizWordRepository
 import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Inject

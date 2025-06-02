@@ -2,7 +2,7 @@ package com.zyuniversita.ui.main.game.words_choosing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.usecase.mapping.GroupWordsAndUserDataByLevelUseCase
 import com.zyuniversita.domain.usecase.words.FetchWordsAndUserDataByLanguageUseCase
 import com.zyuniversita.domain.usecase.words.UpdateUserDataWordSelectionUseCase

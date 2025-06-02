@@ -1,4 +1,4 @@
-package com.zyuniversita.domain.model
+package com.zyuniversita.domain.model.words
 
 /**
  * Represents a word entity in the application's domain model.

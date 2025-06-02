@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.wordslist
 
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import com.zyuniversita.domain.repository.QuizWordRepository
 import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Inject

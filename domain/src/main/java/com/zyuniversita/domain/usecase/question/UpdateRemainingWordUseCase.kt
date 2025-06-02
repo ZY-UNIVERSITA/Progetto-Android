@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.question
 
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import javax.inject.Inject
 
 interface UpdateRemainingWordUseCase: (Boolean, MutableList<WordProgress>, Int) -> Unit

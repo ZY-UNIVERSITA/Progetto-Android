@@ -1,4 +1,4 @@
-package com.zyuniversita.domain.model
+package com.zyuniversita.domain.model.words
 
 import com.squareup.moshi.Json
 

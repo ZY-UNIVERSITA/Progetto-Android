@@ -2,7 +2,7 @@ package com.zyuniversita.ui.main.game.games_language
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.domain.usecase.languages.FetchLanguageUseCase
 import com.zyuniversita.domain.usecase.words.StartFetchWordsAndUserDataByLanguageUseCase
 import com.zyuniversita.ui.main.game.games_language.uistate.LanguageChoosingEvent

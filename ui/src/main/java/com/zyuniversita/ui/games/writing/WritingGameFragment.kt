@@ -115,10 +115,9 @@ class WritingGameFragment : Fragment() {
             ).show()
         }
 
-        // 5) Save drawing  (placeholder: al momento facciamo l’undo, vedi nota più sotto)
+        // 5) Save drawing
         undoButton.setOnClickListener {
-            // TODO: sostituisci con la tua logica di salvataggio reale
-            drawingView.undoStroke()          // <-- demo / placeholder
+            drawingView.undoStroke()
             Toast.makeText(
                 requireContext(),
                 "Undo eseguito", Toast.LENGTH_SHORT
@@ -126,11 +125,9 @@ class WritingGameFragment : Fragment() {
         }
     }
 
-    /* -------------------------------------------------------------------- */
     /* -----------------------------  UI  --------------------------------- */
-    /* -------------------------------------------------------------------- */
     private fun resetUI() = with(binding) {
-        // visibilità / abilita-zione
+        // visibilità / abilitazione
         answerQuizText.visibility = View.GONE
         showResult.isEnabled = true
 
@@ -155,7 +152,7 @@ class WritingGameFragment : Fragment() {
         viewModel.tempUpdate(isCorrect)
     }
 
-    private suspend fun loadNextWord() = with(binding) {
+    private fun loadNextWord() = with(binding) {
         resetUI()
 
         val next = viewModel.word
