@@ -6,6 +6,7 @@ import com.zyuniversita.domain.model.authentication.AuthenticationResponseEnum
 import com.zyuniversita.domain.model.authentication.AuthenticationResponseInfo
 import com.zyuniversita.domain.model.authentication.RegistrationInfo
 import com.zyuniversita.domain.usecase.authentication.RegisterUseCase
+import com.zyuniversita.domain.usecase.userdata.InsertNewUserUseCase
 import com.zyuniversita.ui.setup.uistate.AuthEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val registerUseCase: RegisterUseCase) :
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase,
+    private val insertNewUserUseCase: InsertNewUserUseCase,
+) :
     ViewModel() {
     private var _responseInfo: AuthenticationResponseInfo? = null
     val responseInfo: AuthenticationResponseInfo? get() = _responseInfo
@@ -27,18 +31,24 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
         viewModelScope.launch {
             val response = registerUseCase(registrationInfo)
 
-
-            val event = when(response.serverResponse) {
+            val event = when (response.serverResponse) {
                 AuthenticationResponseEnum.SUCCESS -> {
                     _responseInfo = response
+
+                    insertUser(authenticationResponseInfo = response)
                     AuthEvent.AuthenticationSuccessful
                 }
+
                 AuthenticationResponseEnum.IDENTIFICATION_FAILURE -> AuthEvent.IdentificationError
                 AuthenticationResponseEnum.CONNECTION_ERROR -> AuthEvent.ConnectionError
             }
 
             _event.send(event)
         }
+    }
+
+    private suspend fun insertUser(authenticationResponseInfo: AuthenticationResponseInfo) {
+        insertNewUserUseCase(authenticationResponseInfo.userId, authenticationResponseInfo.username)
     }
 
     fun goToLogin() {

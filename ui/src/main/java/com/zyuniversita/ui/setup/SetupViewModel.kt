@@ -14,7 +14,6 @@ import com.zyuniversita.domain.usecase.worddatabase.FetchLatestDatabaseVersionUs
 import com.zyuniversita.domain.usecase.worddatabase.UpdateWordDatabaseUseCase
 import com.zyuniversita.domain.usecase.worker.RemoveNotificationWorkerUseCase
 import com.zyuniversita.domain.usecase.worker.StartNotificationWorkerUseCase
-import com.zyuniversita.domain.usecase.worker.StartSynchronizationWorkerUseCase
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page
 import com.zyuniversita.ui.setup.uistate.SetupEvent
 import com.zyuniversita.ui.setup.uistate.SetupUiState
@@ -47,8 +46,6 @@ class SetupViewModel @Inject constructor(
 
     private val startNotificationWorkerUseCase: StartNotificationWorkerUseCase,
     private val removeNotificationWorkerUseCase: RemoveNotificationWorkerUseCase,
-
-    private val startSynchronizationWorkerUseCase: StartSynchronizationWorkerUseCase
 ) : ViewModel() {
 
     /* ---------------- UI State ---------------- */
@@ -65,6 +62,7 @@ class SetupViewModel @Inject constructor(
             uiState.collect { state ->
                 if (state.isSetupCompleted) {
                     _event.send(SetupEvent.NavigateToHome)
+                    _uiState.emit(SetupUiState())
                 }
             }
         }
