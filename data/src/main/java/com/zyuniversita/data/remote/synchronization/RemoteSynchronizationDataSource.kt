@@ -24,7 +24,11 @@ class RemoteSynchronizationDataSourceImpl @Inject constructor(
     }
 
     override suspend fun uploadData(userDataToSynchronize: UserDataToSynchronize) {
-        synchronizationApi.uploadUserData(userDataToSynchronize)
+        try {
+            synchronizationApi.uploadUserData(userDataToSynchronize)
+        } catch (e: Exception) {
+            Log.e(TAG, "Connection error or server error.")
+        }
     }
 
     override suspend fun downloadUserData(userId: Long): SynchronizationResponseInfo {
@@ -42,7 +46,7 @@ class RemoteSynchronizationDataSourceImpl @Inject constructor(
 
             return responseInfo
         } catch (e: Exception) {
-            Log.e(TAG, "Connection error or server error. " + e.localizedMessage)
+            Log.e(TAG, "Connection error or server error.")
             return SynchronizationResponseInfo(
                 UserDataToSynchronize(-1, listOf(), listOf()),
                 SynchronizationResponseEnum.CONNECTION_ERROR
