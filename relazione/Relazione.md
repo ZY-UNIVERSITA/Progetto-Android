@@ -63,9 +63,24 @@ Contiene due sottomoduli:
   - Modelli di risposta.
   - DataSource per gestire le richieste e le risposte remote.
 
+- **Synchronization**: permette di sincronizzare i dati con il server remoto. Include:
+  - API Retrofit.
+  - Modelli di risposta.
+  - DataSource per gestire le richieste e le risposte remote.
+
+- **authentication**: permette di gestire le fasi di autenticazione, compreso il processo di registrazione e di login. Include:
+  - API Retrofit.
+  - Modelli di risposta.
+  - DataSource per gestire le richieste e le risposte remote.
+
 #### `repository`
 
-Contiene le implementazioni concrete delle interfacce di repository del domain layer. Si occupa di interagire sia con i database locali, le preferenze locali degli utenti, la gestione dei worker che con le sorgenti esterne.
+Contiene le implementazioni concrete delle interfacce di repository del domain layer. Si occupa di:
+  - Interagire sia con i database locali e remoti
+  - Gestire le preferenze locali degli utenti
+  - La gestione dei worker
+  - La gestione della sincronizzazione e dell'autenticazione e dei servizi remoti.
+  - Gestione dei file applicativi.
 
 #### `utils`
 
@@ -73,7 +88,7 @@ Contiene le classi di utilià come le classi di **Mapper** utilizzate per conver
 
 #### `worker`
 
-Modulo utilizzato per inserire logica di background tramite **WorkManager**. Include una classe `NotificationWorker` che invia una notifica all'utente nel caso l'app non venga aperta per 24 ore.
+Modulo utilizzato per inserire logica di background tramite **WorkManager**. Include una classe `NotificationWorker` che invia una notifica all'utente nel caso l'app non venga aperta per 24 ore e una classe `SynchronizationWorker` per gestire la sincronizzazione automatica dei dati con il server per gli utenti loggati.
 
 ---
 
@@ -136,7 +151,7 @@ Activity che contiene i diversi giochi linguistici, ognuno implementato in un fr
 
 #### `setup`
 
-Activity mostrata all'avvio per il setup e l'aggiornamento dei dati dell'applicazione come le parole nuove.
+Activity mostrata all'avvio per il setup e l'aggiornamento dei dati dell'applicazione come le parole nuove. Si occupa di gestire anche la fase di login e registrazione.
 
 #### `splashscreen`
 
@@ -184,11 +199,14 @@ Il progetto implementa tutte le moderne tecnologie di Android, offrendo una solu
 - Iniezione delle dipendenze tramite **Hilt**, evitando istanziazioni manuali e aumentando la testabilità.
 - Networking basato su **Retrofit** e **OkHttp**, con parsing JSON tramite **Moshi**, semplificandone l'uso generale.
 - Uso di **coroutine, Flow e Channel** per una UI asincrona, non bloccante e reattiva.
-- Uso di pochi Activity con più fragment per una migliore gestione del ciclo di vita.
+- Uso di **pochi Activity** con più fragment per una migliore gestione del ciclo di vita.
 - Utilizzo di **Recyclew view** per gestire in modo più efficienti elenchi di view.
 - Persistenza locale efficace con **Room** per la gestire in un database SQL e **Preferences DataStore** per la gestione di un semplice file costituito da coppie chiavi-valore.
-- Compatibilità con la versione più recente di Android (**API 35**) in modo tale da usare funzionalità più avanzate e semplificate, come ad esempio la gestione dei permessi per l'uso della fotocamera, della galleria e del salvataggio delle immagini, senza la necessità di dichiararne formalmente l'uso, ma gestendolo al momento dell'uso.
-- Notifiche ritardate gestite con **WorkManager**, sicure anche dopo reboot.
+- **Permessi**: compatibilità con la versione più recente di Android (**API 35**) in modo tale da usare funzionalità più avanzate e semplificate, come ad esempio:
+  - La gestione dei permessi per l'uso della fotocamera, della galleria e del salvataggio delle immagini, senza la necessità di dichiararne formalmente l'uso, ma gestendolo al momento dell'uso. 
+  - Utilizzo dei launcher di Android per gestire i permessi e notificare l'utente con un rational per definire l'utilizzo dei permessi, in particolare è stato usato per gestire le notifiche. 
+- Notifiche e sincronizzazione ritardate gestite con **WorkManager**, sicure anche dopo reboot.
+- Supporto a **più lingue** per interfaccia tramite l'uso di values a più lingue.
 
 ---
 
@@ -199,7 +217,6 @@ Nonostante il progetto soddisfi pienamente i requisiti funzionali e architettura
 - Integrazione di **test automatici** per rilevare problematiche prima del building.
 - **Miglioramento della parte UI** per un rendering più moderno e seguire in modo più rigoroso le regole di **Material Design**.
 - Implementazione di un **algoritmo adattivo** basato sul livello dell’utente.
-- Supporto a **più lingue** per interfaccia tramite l'uso di values a più lingue.
 - Utilizzare una versione autogestita da Android per la navigazione.
 
 
