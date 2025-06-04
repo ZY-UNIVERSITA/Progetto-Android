@@ -60,9 +60,9 @@ class SetupActivity() : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { progress ->
-                    if (progress.percentage > 0) {
+                    if (progress.percentage > 0 && !progress.isUserIdMissing) {
                         _binding.progressBar.visibility = View.VISIBLE
-                        _binding.overlayView.visibility = View.VISIBLE
+                        _binding.fragmentContainerView.visibility = View.GONE
                     }
 
                     animateProgressBar(progress.percentage)
@@ -83,13 +83,26 @@ class SetupActivity() : AppCompatActivity() {
             viewModel.event.collect { event ->
                 when (event) {
                     SetupEvent.NavigateToHome -> {
+//                        _binding.progressBar.visibility = View.VISIBLE
+//                        animateProgressBar(100)
                         delay(1000)
                         goToHomePage()
                     }
 
-                    SetupEvent.NavigateToRegister -> changeFragment(Page.REGISTER)
-                    SetupEvent.NavigateToLogin -> changeFragment(Page.LOGIN)
-                    SetupEvent.NavigateToLocalRegister -> changeFragment(Page.LOCAL_REGISTER)
+                    SetupEvent.NavigateToRegister -> {
+                        changeFragment(Page.REGISTER)
+                        _binding.progressBar.visibility = View.GONE
+                    }
+
+                    SetupEvent.NavigateToLogin -> {
+                        changeFragment(Page.LOGIN)
+                        _binding.progressBar.visibility = View.GONE
+
+                    }
+                    SetupEvent.NavigateToLocalRegister -> {
+                        changeFragment(Page.LOCAL_REGISTER)
+                        _binding.progressBar.visibility = View.GONE
+                    }
                 }
             }
         }
