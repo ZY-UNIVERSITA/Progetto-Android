@@ -30,7 +30,7 @@ class ProfileAdapter(
                     (stat.correctAnswer.toDouble() / totalAnswers * 100)
                 }
 
-                percentageText.text = "Correctness: $percentage%"
+                percentageText.text = "Correctness: ${String.format("%.1f", percentage)}%"
             }
         }
 
