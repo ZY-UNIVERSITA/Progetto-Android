@@ -89,7 +89,6 @@ class SettingsActivity() : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun goToHomePage() {

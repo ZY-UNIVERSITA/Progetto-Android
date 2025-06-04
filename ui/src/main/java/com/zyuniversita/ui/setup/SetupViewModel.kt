@@ -168,7 +168,7 @@ class SetupViewModel @Inject constructor(
         startNotificationWorkerUseCase()
     }
 
-    private fun removeNotificationWorker() {
+    fun removeNotificationWorker() {
         removeNotificationWorkerUseCase()
     }
 }
