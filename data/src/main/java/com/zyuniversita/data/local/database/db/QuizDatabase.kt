@@ -1,7 +1,6 @@
 package com.zyuniversita.data.local.database.db
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -99,9 +98,9 @@ abstract class QuizDatabase : RoomDatabase() {
                     QuizDatabase::class.java,
                     "quiz_database"
                 )
-                    .setQueryCallback({ sqlQuery, bindArgs ->
-                    Log.d("SQL_QUERY", "Query: $sqlQuery, Args: $bindArgs")
-                }, Executors.newSingleThreadExecutor())
+//                    .setQueryCallback({ sqlQuery, bindArgs ->
+//                    Log.d("SQL_QUERY", "Query: $sqlQuery, Args: $bindArgs")
+//                }, Executors.newSingleThreadExecutor())
 
                     .fallbackToDestructiveMigration(false)
                     .addCallback(object : RoomDatabase.Callback() {
@@ -112,7 +111,7 @@ abstract class QuizDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO language (code, name) VALUES ('ch', 'Chinese')")
                                 db.execSQL("INSERT INTO language (code, name) VALUES ('jp', 'Japanese')")
                                 db.execSQL("INSERT INTO language (code, name) VALUES ('kr', 'Korean')")
-                                
+
                                 // Insert initial levels for Chinese and Japanese, and Korean
                                 db.execSQL("INSERT INTO level (code, languageCode) VALUES ('HSK1', 'ch')")
                                 db.execSQL("INSERT INTO level (code, languageCode) VALUES ('HSK2', 'ch')")
@@ -122,34 +121,37 @@ abstract class QuizDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO level (code, languageCode) VALUES ('N3', 'jp')")
                                 db.execSQL("INSERT INTO level (code, languageCode) VALUES ('N4', 'jp')")
                                 db.execSQL("INSERT INTO level (code, languageCode) VALUES ('TOPIK1', 'kr')")
-                                
-                                // Insert initial words for KSH1 levels
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (1, 'HSK1', 'ch', '家', 'Home')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (2, 'HSK1', 'ch', '门', 'Door')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (3, 'HSK1', 'ch', '耳', 'Ear')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (4, 'HSK1', 'ch', '马', 'Horse')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (5, 'HSK1', 'ch', '猫', 'Cat')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (6, 'HSK1', 'ch', '狗', 'Dog')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (7, 'HSK1', 'ch', '毛', 'Hair')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (8, 'HSK1', 'ch', '学校', 'School')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (9, 'HSK1', 'ch', '熊猫', 'Panda')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (10, 'HSK1', 'ch', '鱼', 'Fish')")
-                                
+
+                                // Insert initial words for HSK1 level
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (1, 'HSK1', 'ch', '家', 'Home', 'Jiā')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (2, 'HSK1', 'ch', '门', 'Door', 'Mén')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (3, 'HSK1', 'ch', '耳', 'Ear', 'Ěr')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (4, 'HSK1', 'ch', '马', 'Horse', 'Mǎ')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (5, 'HSK1', 'ch', '猫', 'Cat', 'Māo')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (6, 'HSK1', 'ch', '狗', 'Dog', 'Gǒu')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (7, 'HSK1', 'ch', '毛', 'Hair', 'Máo')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (8, 'HSK1', 'ch', '学校', 'School', 'Xuéxiào')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (9, 'HSK1', 'ch', '熊猫', 'Panda', 'Xióngmāo')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (10, 'HSK1', 'ch', '鱼', 'Fish', 'Yú')")
+
                                 // Insert initial words for HSK2 level
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (11, 'HSK2', 'ch', '面', 'Noodle')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (12, 'HSK2', 'ch', '线', 'Thread')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (13, 'HSK2', 'ch', '火', 'Fire')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (14, 'HSK2', 'ch', '草', 'Grass')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (15, 'HSK2', 'ch', '鸟', 'Bird')")
-                                
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (11, 'HSK2', 'ch', '面', 'Noodle', 'Miàn')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (12, 'HSK2', 'ch', '线', 'Thread', 'Xiàn')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (13, 'HSK2', 'ch', '火', 'Fire', 'Huǒ')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (14, 'HSK2', 'ch', '草', 'Grass', 'Cǎo')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (15, 'HSK2', 'ch', '鸟', 'Bird', 'Niǎo')")
+
                                 // Insert initial words for Japanese levels
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (16, 'N1', 'jp', '私', 'I')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (17, 'N2', 'jp', '教室', 'Classroom')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (18, 'N3', 'jp', '東京', 'Tokyo')")
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (19, 'N4', 'jp', '京都', 'Kyoto')")
-                                
-                                // Insert initial word for Korean level
-                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning) VALUES (20, 'TOPIK1', 'kr', '베개', 'Pillow')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (16, 'N1', 'jp', '私', 'I', 'Watashi')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (17, 'N2', 'jp', '教室', 'Classroom', 'Kyōshitsu')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (18, 'N3', 'jp', '東京', 'Tokyo', 'Tōkyō')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (19, 'N4', 'jp', '京都', 'Kyoto', 'Kyōto')")
+
+                                // Insert initial words for Korean level
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (20, 'TOPIK1', 'kr', '베개', 'Pillow', 'Begae')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (21, 'TOPIK1', 'kr', '책', 'Book', 'Chaek')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (22, 'TOPIK1', 'kr', '의자', 'Chair', 'Uija')")
+                                db.execSQL("INSERT INTO word (wordId, levelCode, languageCode, word, meaning, transliteration) VALUES (23, 'TOPIK1', 'kr', '물', 'Water', 'Mul')")
                             }
                         }
                     }).build()
