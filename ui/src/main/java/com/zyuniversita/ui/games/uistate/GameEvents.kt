@@ -1,4 +1,4 @@
-package com.zyuniversita.ui.games.writing.uistate
+package com.zyuniversita.ui.games.uistate
 
 sealed interface GameEvents {
     data object DataLoaded: GameEvents
