@@ -52,4 +52,13 @@
     <string name="correct">Corrette: %1$.1f%%</string>
     <string name="Homepage">홈페이지の熊猫</string>
     <string name="welcome">Ciao, perché non giochi a un gioco?</string>
+    <string name="registration">Registrazione</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Registrati</string>
+    <string name="login">Accesso</string>
+    <string name="continue_without_registration">Continua senza registrazione</string>
+    <string name="synchronization">Sincronizzazione</string>
+    <string name="logout">Disconnessione</string>
+    <string name="back">Indietro</string>
 </resources>

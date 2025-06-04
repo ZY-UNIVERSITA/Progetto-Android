@@ -52,4 +52,13 @@
     <string name="correct">正确率： %1$.1f%%</string>
     <string name="Homepage">홈페이지の熊猫</string>
     <string name="welcome">你好，为什么不玩个游戏？</string>
+    <string name="registration">注册</string>
+    <string name="email">邮箱</string>
+    <string name="password">密码</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="continue_without_registration">无需注册继续</string>
+    <string name="synchronization">同步</string>
+    <string name="logout">退出登录</string>
+    <string name="back">返回</string>
 </resources>

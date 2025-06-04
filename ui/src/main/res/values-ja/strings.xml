@@ -52,4 +52,13 @@
     <string name="correct">正解率: %1$.1f%%</string>
     <string name="Homepage">홈페이지の熊猫</string>
     <string name="welcome">こんにちは、ゲームをプレイしませんか？</string>
+    <string name="registration">登録</string>
+    <string name="email">メール</string>
+    <string name="password">パスワード</string>
+    <string name="register">登録する</string>
+    <string name="login">ログイン</string>
+    <string name="continue_without_registration">登録 せずに 続行</string>
+    <string name="synchronization">同期</string>
+    <string name="logout">ログアウト</string>
+    <string name="back">戻る</string>
 </resources>
