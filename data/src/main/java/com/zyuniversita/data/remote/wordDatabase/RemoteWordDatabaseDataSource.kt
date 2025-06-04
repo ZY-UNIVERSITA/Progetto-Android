@@ -1,5 +1,6 @@
 package com.zyuniversita.data.remote.wordDatabase
 
+import android.util.Log
 import com.zyuniversita.data.remote.wordDatabase.api.WordDatabaseApi
 import com.zyuniversita.data.remote.wordDatabase.model.WordDatabaseEntity
 import javax.inject.Inject
@@ -38,17 +39,33 @@ class RemoteWordDatabaseDataSourceImpl @Inject constructor(
     private val wordDatabaseApi: WordDatabaseApi
 ) : RemoteWordDatabaseDataSource {
 
+    companion object {
+        private const val TAG = "DATABASE_REMOTE_TAG"
+    }
+
     /**
      * {@inheritDoc}
      */
     override suspend fun fetchVersion(): Int {
-        return wordDatabaseApi.getWordDatabaseVersion().version
+        return try {
+            val databaseVersion: Int = wordDatabaseApi.getWordDatabaseVersion().version
+            databaseVersion
+        } catch (e: Exception) {
+            Log.e(TAG, "Connection error. Try again later")
+            -1
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     override suspend fun fetchDatabase(version: Int): List<WordDatabaseEntity> {
-        return wordDatabaseApi.getWordDatabase(version)
+        return try {
+            val databaseVersion: List<WordDatabaseEntity> = wordDatabaseApi.getWordDatabase(version)
+            databaseVersion
+        } catch (e: Exception) {
+            Log.e(TAG, "Connection error. Try again later")
+            listOf()
+        }
     }
 }
