@@ -13,10 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zyuniversita.ui.databinding.LanguageListFragmentBinding
-import com.zyuniversita.ui.main.mainactivity.MainActivityViewModel
 import com.zyuniversita.ui.main.game.games_language.uistate.LanguageChoosingEvent
+import com.zyuniversita.ui.main.mainactivity.MainActivityViewModel
+import com.zyuniversita.ui.utils.mapper.FlagMapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class GamesLanguageListFragment : Fragment() {
@@ -28,6 +30,8 @@ class GamesLanguageListFragment : Fragment() {
     private val viewModel: GamesLanguageListViewModel by viewModels()
 
     private val activityViewModel: MainActivityViewModel by activityViewModels()
+
+    private lateinit var flagMapper: FlagMapper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +50,7 @@ class GamesLanguageListFragment : Fragment() {
         binding.recycleView.adapter = GamesLanguageListAdapter(
             mutableListOf(),
             viewModel::selectLanguage,
+            flagMapper
         )
 
         return view
@@ -91,4 +96,8 @@ class GamesLanguageListFragment : Fragment() {
         _binding = null
     }
 
+    @Inject
+    fun setFlagMapper(flagMapper: FlagMapper) {
+        this.flagMapper = flagMapper
+    }
 }

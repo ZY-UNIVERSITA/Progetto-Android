@@ -17,9 +17,11 @@ import com.zyuniversita.ui.R
 import com.zyuniversita.ui.databinding.FragmentProfileBinding
 import com.zyuniversita.ui.main.mainactivity.MainActivityViewModel
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page
+import com.zyuniversita.ui.utils.mapper.FlagMapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -31,6 +33,8 @@ class ProfileFragment : Fragment() {
     private val activityViewModel: MainActivityViewModel by activityViewModels()
 
     private lateinit var profileAdapter: ProfileAdapter
+
+    private lateinit var flagMapper: FlagMapper
 
     companion object {
         private const val TAG = "ProfileFragment"
@@ -52,21 +56,21 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        profileAdapter = ProfileAdapter(mutableListOf())
+        profileAdapter = ProfileAdapter(mutableListOf(), flagMapper)
 
         binding.recyclerLanguages.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = profileAdapter
         }
 
+        viewModel.fetchUserData()
+        viewModel.fetchUsername()
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.fetchUserData()
-        viewModel.fetchUsername()
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -100,6 +104,13 @@ class ProfileFragment : Fragment() {
                 activityViewModel.changeActivity(Page.SETTINGS)
             }
         }
+
+        binding.logoutButton.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.logout()
+                activityViewModel.changeActivity(Page.SETUP)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -112,5 +123,10 @@ class ProfileFragment : Fragment() {
 
     private fun updateList(newList: List<GeneralUserStats>) {
         profileAdapter.updateList(newList)
+    }
+
+    @Inject
+    fun setFlagMapper(flagMapper: FlagMapper) {
+        this.flagMapper = flagMapper
     }
 }

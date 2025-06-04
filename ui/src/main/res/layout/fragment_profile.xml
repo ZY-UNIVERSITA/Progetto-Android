@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,9 +16,9 @@
         android:contentDescription="@string/profile_image"
         android:scaleType="centerCrop"
         android:src="@drawable/eng_ch"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- 2. Username -->
     <TextView
@@ -29,9 +29,9 @@
         android:text="@string/username"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/image_profile"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/image_profile" />
 
     <!-- 3a. Quiz completati -->
     <TextView
@@ -51,9 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/placeholder"
-        app:layout_constraintTop_toTopOf="@id/completedQuiz"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/completedQuiz"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/completedQuiz" />
+
     <!-- 4. Bottone modifica profilo -->
     <Button
         android:id="@+id/button_edit_profile"
@@ -63,20 +64,31 @@
         android:backgroundTint="#ff0000"
         android:text="@string/modify_profile"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/completedQuiz"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/completedQuiz" />
 
-    <!-- 5. RecyclerView lingue -->
+    <!-- 5. Logout -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_edit_profile" />
+
+    <!-- 6. RecyclerView lingue -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_languages"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/button_edit_profile"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/logoutButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

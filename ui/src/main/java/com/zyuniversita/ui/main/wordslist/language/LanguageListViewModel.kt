@@ -2,7 +2,7 @@ package com.zyuniversita.ui.main.wordslist.language
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.domain.usecase.languages.FetchLanguageUseCase
 import com.zyuniversita.domain.usecase.wordslist.StartFetchWordsByLanguageGeneralListUseCase
 import com.zyuniversita.ui.main.wordslist.language.uistate.LanguageListEvent

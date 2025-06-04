@@ -5,14 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.zyuniversita.domain.model.userdata.GeneralUserStats
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchUsernameUseCase
+import com.zyuniversita.domain.usecase.profile.RemoveAllPreferencesUseCase
+import com.zyuniversita.domain.usecase.userdata.DeleteAllUserDataEntriesUseCase
+import com.zyuniversita.domain.usecase.userdata.DeleteAllWordsDataEntriesUseCase
 import com.zyuniversita.domain.usecase.userdata.FetchUserGeneralStatsUseCase
 import com.zyuniversita.domain.usecase.userdata.StartFetchUserGeneralStatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +25,10 @@ class ProfileViewModel @Inject constructor(
     private val fetchUserIdUseCase: FetchUserIdUseCase,
     private val startFetchUserGeneralStatsUseCase: StartFetchUserGeneralStatsUseCase,
     private val fetchUserGeneralStatsUseCase: FetchUserGeneralStatsUseCase,
+
+    private val removeAllPreferencesUseCase: RemoveAllPreferencesUseCase,
+    private val deleteAllUserDataEntriesUseCase: DeleteAllUserDataEntriesUseCase,
+    private val deleteAllWordsDataEntriesUseCase: DeleteAllWordsDataEntriesUseCase,
 ) :
     ViewModel() {
     private val _userId: MutableStateFlow<Long?> = MutableStateFlow<Long?>(null)
@@ -38,7 +45,7 @@ class ProfileViewModel @Inject constructor(
 
     fun fetchUserId() {
         viewModelScope.launch {
-            fetchUserIdUseCase().firstOrNull()?.let { userId ->
+            fetchUserIdUseCase().first().let { userId ->
                 _userId.emit(userId)
             }
         }
@@ -46,7 +53,7 @@ class ProfileViewModel @Inject constructor(
 
     fun fetchUserData() {
         viewModelScope.launch {
-            userId.firstOrNull()?.let { userId ->
+            userId.filterNotNull().first().let { userId ->
                 startFetchUserGeneralStatsUseCase(userId)
                 val userData = fetchUserGeneralStatsUseCase().first()
                 _userData.emit(userData)
@@ -59,5 +66,14 @@ class ProfileViewModel @Inject constructor(
             val username = fetchUsernameUseCase().first()
             _username.emit(username)
         }
+    }
+
+    suspend fun logout() {
+        val id = userId.filterNotNull().first()
+
+        deleteAllUserDataEntriesUseCase(id)
+        deleteAllWordsDataEntriesUseCase(id)
+        removeAllPreferencesUseCase()
+
     }
 }

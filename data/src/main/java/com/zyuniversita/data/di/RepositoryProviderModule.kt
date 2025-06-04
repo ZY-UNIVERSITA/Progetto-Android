@@ -1,15 +1,21 @@
 package com.zyuniversita.data.di
 
+import com.zyuniversita.data.repository.AssetsReaderRepositoryImpl
+import com.zyuniversita.data.repository.AuthenticationRepositoryImpl
 import com.zyuniversita.data.repository.ImageRecognitionRepositoryImpl
 import com.zyuniversita.data.repository.LanguageRepositoryImpl
 import com.zyuniversita.data.repository.PreferencesRepositoryImpl
 import com.zyuniversita.data.repository.QuizWordRepositoryImpl
+import com.zyuniversita.data.repository.SynchronizationRepositoryImpl
 import com.zyuniversita.data.repository.UserDataRepositoryImpl
 import com.zyuniversita.data.repository.WorkerRepositoryImpl
+import com.zyuniversita.domain.repository.AssetsReaderRepository
+import com.zyuniversita.domain.repository.AuthenticationRepository
 import com.zyuniversita.domain.repository.ImageRecognitionRepository
 import com.zyuniversita.domain.repository.LanguageRepository
 import com.zyuniversita.domain.repository.PreferencesRepository
 import com.zyuniversita.domain.repository.QuizWordRepository
+import com.zyuniversita.domain.repository.SynchronizationRepository
 import com.zyuniversita.domain.repository.UserDataRepository
 import com.zyuniversita.domain.repository.WorkerRepository
 import dagger.Binds
@@ -94,4 +100,23 @@ abstract class RepositoryProviderModule {
     abstract fun bindWorkerRepository(
         workerRepositoryImpl: WorkerRepositoryImpl
     ): WorkerRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAuthenticationRepository(
+        authenticationRepositoryImpl: AuthenticationRepositoryImpl
+    ): AuthenticationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSynchronizationRepository(
+        synchronizationRepositoryImpl: SynchronizationRepositoryImpl
+    ): SynchronizationRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindAssetsReaderRepository(
+        assetsReaderRepositoryImpl: AssetsReaderRepositoryImpl
+    ): AssetsReaderRepository
 }
+

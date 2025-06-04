@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.zyuniversita.ui.databinding.FragmentWritingGameBinding
 import com.zyuniversita.ui.games.main.GameViewModel
-import com.zyuniversita.ui.games.writing.uistate.GameEvents
+import com.zyuniversita.ui.games.uistate.GameEvents
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -115,10 +115,9 @@ class WritingGameFragment : Fragment() {
             ).show()
         }
 
-        // 5) Save drawing  (placeholder: al momento facciamo l’undo, vedi nota più sotto)
+        // 5) Save drawing
         undoButton.setOnClickListener {
-            // TODO: sostituisci con la tua logica di salvataggio reale
-            drawingView.undoStroke()          // <-- demo / placeholder
+            drawingView.undoStroke()
             Toast.makeText(
                 requireContext(),
                 "Undo eseguito", Toast.LENGTH_SHORT
@@ -126,11 +125,9 @@ class WritingGameFragment : Fragment() {
         }
     }
 
-    /* -------------------------------------------------------------------- */
     /* -----------------------------  UI  --------------------------------- */
-    /* -------------------------------------------------------------------- */
     private fun resetUI() = with(binding) {
-        // visibilità / abilita-zione
+        // visibilità / abilitazione
         answerQuizText.visibility = View.GONE
         showResult.isEnabled = true
 
@@ -155,7 +152,7 @@ class WritingGameFragment : Fragment() {
         viewModel.tempUpdate(isCorrect)
     }
 
-    private suspend fun loadNextWord() = with(binding) {
+    private fun loadNextWord() = with(binding) {
         resetUI()
 
         val next = viewModel.word
@@ -168,10 +165,11 @@ class WritingGameFragment : Fragment() {
     }
 
     private fun finishGame() {
+        activityViewModel.updateWordsStats(viewModel.wordsStats)
         viewModel.saveSession()
     }
 
     private fun returnToHome() {
-        activityViewModel.finishGame()
+        activityViewModel.showResult()
     }
 }

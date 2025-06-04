@@ -31,6 +31,7 @@ class FindCharacterViewModel @Inject constructor(
     fun uploadImage() {
         viewModelScope.launch {
             _tempImageUri?.let {
+
                 val rawImage = mapper.map(_tempImageUri!!)
                 val result = runCatching { uploadImageToRecognizeUseCase(rawImage) }
 

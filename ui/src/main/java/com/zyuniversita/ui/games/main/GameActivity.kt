@@ -43,6 +43,7 @@ class GameActivity() : AppCompatActivity() {
             viewModel.gameEvent.collect { event ->
                 when (event) {
                     GameEvent.GameFinished -> finishGame()
+                    GameEvent.ShowResults -> showResults()
                 }
             }
         }
@@ -57,7 +58,16 @@ class GameActivity() : AppCompatActivity() {
                 add(_binding.fragmentContainerView.id, ApplicationFragmentFactory.getPage(gameName))
             }
         }
+    }
 
+    private fun showResults() {
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(
+                _binding.fragmentContainerView.id,
+                ApplicationFragmentFactory.getPage(Page.RESULTS)
+            )
+        }
     }
 
 //    private fun fragmentFactory(page: String): Fragment {

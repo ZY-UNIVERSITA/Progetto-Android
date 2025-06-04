@@ -50,4 +50,16 @@
     <string name="profile">Profile</string>
     <string name="quiz">Quiz: %1$s</string>
     <string name="correct">Correct: %1$.1f%%</string>
+    <string name="Homepage">홈페이지の熊猫</string>
+    <string name="welcome">Hello, why don\'t you play a game?</string>
+    <string name="registration">Registration</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="continue_without_registration">Continue without registration</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="logout">Logout</string>
+    <string name="back">Back</string>
+    <string name="results">Results</string>
 </resources>

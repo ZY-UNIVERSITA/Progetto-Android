@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.usecase.mapping
 
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import javax.inject.Inject
 
 interface GroupWordsByLevelUseCase : (List<Word>) -> MutableList<MutableList<Word>>

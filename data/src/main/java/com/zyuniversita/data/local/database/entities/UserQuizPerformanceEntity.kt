@@ -33,6 +33,7 @@ import androidx.room.Index
  * @property wrongAnswer The total number of wrong answers given by the user. Defaults to 0.
  */
 @Entity(
+
     tableName = "user_quiz_performance",
     primaryKeys = ["userId", "languageCode"],
     foreignKeys = [
@@ -55,7 +56,7 @@ import androidx.room.Index
     ]
 )
 data class UserQuizPerformanceEntity(
-    val userId: Long,
+    val userId: Int,
     val languageCode: String,
     val completedQuiz: Int = 1,
     val correctAnswer: Int = 0,

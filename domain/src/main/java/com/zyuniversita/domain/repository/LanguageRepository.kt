@@ -1,6 +1,6 @@
 package com.zyuniversita.domain.repository
 
-import com.zyuniversita.domain.model.AvailableLanguage
+import com.zyuniversita.domain.model.words.AvailableLanguage
 import kotlinx.coroutines.flow.StateFlow
 
 interface LanguageRepository {

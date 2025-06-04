@@ -1,0 +1,13 @@
+<h2>Welcome to Our App!</h2>
+    <p>Follow these steps to get started:</p>
+    <ol>
+        <li><b>Setup:</b> Customize your profile.</li>
+        <li><b>Explore:</b> Discover the main features:
+            <ul>
+                <li><b>Home</b>: instructions</li>
+                <li><b>Games</b>: games such as multiple choice, character writing, matching, etc.</li>
+                <li><b>Dictionary</b>: word list</li>
+                <li><b>Profile</b>: profile and customization</li>
+            </ul>
+        </li>
+    </ol>

@@ -1,6 +1,6 @@
 package com.zyuniversita.ui.games.writing
 
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase
 import com.zyuniversita.domain.usecase.question.GenerateWritingQuestionUseCase
@@ -10,7 +10,7 @@ import com.zyuniversita.domain.usecase.userdata.UpdateUserDataUseCase
 import com.zyuniversita.domain.usecase.userdata.UpdateUserPerformanceUseCase
 import com.zyuniversita.domain.usecase.words.FetchWordsForQuizUseCase
 import com.zyuniversita.ui.games.abstracts.AbstractGameFragmentViewModel
-import com.zyuniversita.ui.games.writing.uistate.GameEvents
+import com.zyuniversita.ui.games.uistate.GameEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

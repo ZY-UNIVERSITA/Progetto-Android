@@ -3,7 +3,7 @@ package com.zyuniversita.ui.main.game.words_choosing
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.ui.databinding.ItemWordsListBinding
 
 class WordListAdapter(

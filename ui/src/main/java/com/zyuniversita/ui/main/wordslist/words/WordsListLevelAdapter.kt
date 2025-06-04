@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zyuniversita.domain.model.Word
+import com.zyuniversita.domain.model.words.Word
 import com.zyuniversita.ui.databinding.ItemLevelsForWordsListBinding
 
 

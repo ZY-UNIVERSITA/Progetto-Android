@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.zyuniversita.ui.findcharacter.FindCharacterFragment
 import com.zyuniversita.ui.games.main.GameActivity
 import com.zyuniversita.ui.games.multiplechoice.MultipleChoiceGameFragment
+import com.zyuniversita.ui.games.results.ResultFragment
 import com.zyuniversita.ui.games.writing.WritingGameFragment
 import com.zyuniversita.ui.main.game.games_choosing.GameChoosingFragment
 import com.zyuniversita.ui.main.game.games_language.GamesLanguageListFragment
@@ -16,8 +17,15 @@ import com.zyuniversita.ui.main.wordslist.language.LanguageListFragment
 import com.zyuniversita.ui.main.wordslist.singleword.SingleWordFragment
 import com.zyuniversita.ui.main.wordslist.words.WordsListFragment
 import com.zyuniversita.ui.settings.SettingsActivity
+import com.zyuniversita.ui.setup.SetupActivity
+import com.zyuniversita.ui.setup.local.LocalRegisterFragment
+import com.zyuniversita.ui.setup.login.LoginFragment
+import com.zyuniversita.ui.setup.registration.RegisterFragment
 
 enum class Page {
+    REGISTER,
+    LOCAL_REGISTER,
+    LOGIN,
     HOME,
     GAME,
     THEORY,
@@ -33,12 +41,17 @@ enum class Page {
     GAME_MULTIPLE_CHOOSING_INV,
     GAME_WRITING,
     GAME_LINKING,
-    SETTINGS;
+    RESULTS,
+    SETTINGS,
+    SETUP;
 }
 
 object ApplicationFragmentFactory {
 
     private val pageMap: Map<Page, Class<out Fragment>> = mapOf(
+        Page.REGISTER to RegisterFragment::class.java,
+        Page.LOCAL_REGISTER to LocalRegisterFragment::class.java,
+        Page.LOGIN to LoginFragment::class.java,
         Page.HOME to HomePageFragment::class.java,
         Page.GAME to GamesLanguageListFragment::class.java,
         Page.THEORY to LanguageListFragment::class.java,
@@ -50,7 +63,8 @@ object ApplicationFragmentFactory {
         Page.CHOOSE_WORDS to WordsChoosingFragment::class.java,
         Page.NAV to NavigationFragment::class.java,
         Page.GAME_MULTIPLE_CHOOSING to MultipleChoiceGameFragment::class.java,
-        Page.GAME_WRITING to WritingGameFragment::class.java
+        Page.GAME_WRITING to WritingGameFragment::class.java,
+        Page.RESULTS to ResultFragment::class.java
     )
 
     fun getPageClass(page: Page): Class<out Fragment> {
@@ -58,7 +72,8 @@ object ApplicationFragmentFactory {
     }
 
     fun getPage(page: Page): Fragment {
-        return pageMap[page]?.getDeclaredConstructor()?.newInstance() ?: throw IllegalArgumentException("Page is not available.")
+        return pageMap[page]?.getDeclaredConstructor()?.newInstance()
+            ?: throw IllegalArgumentException("Page is not available.")
     }
 }
 
@@ -66,7 +81,8 @@ object ApplicationActivityFactory {
     private val pageMap: Map<Page, Class<out Activity>> = mapOf(
         Page.GAME_MULTIPLE_CHOOSING to GameActivity::class.java,
         Page.GAME_WRITING to GameActivity::class.java,
-        Page.SETTINGS to SettingsActivity::class.java
+        Page.SETTINGS to SettingsActivity::class.java,
+        Page.SETUP to SetupActivity::class.java
     )
 
     fun getPageClass(page: Page): Class<out Activity> {

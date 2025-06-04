@@ -1,4 +1,4 @@
-package com.zyuniversita.domain.model
+package com.zyuniversita.domain.model.words
 
 /**
  * Represents a multiple-choice quiz question based on a word and its related options.

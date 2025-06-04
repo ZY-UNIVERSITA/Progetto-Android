@@ -1,14 +1,25 @@
 package com.zyuniversita.data.utils.mapper
 
 import com.zyuniversita.data.local.database.entities.LanguageEntity
+import com.zyuniversita.data.local.database.entities.UserQuizPerformanceEntity
 import com.zyuniversita.data.local.database.entities.WordEntity
+import com.zyuniversita.data.local.database.entities.WordUserDataEntity
 import com.zyuniversita.data.local.database.relations.UserQuizPerformanceWithLanguage
 import com.zyuniversita.data.local.database.relations.WordWithUserData
+import com.zyuniversita.data.remote.authentication.model.AuthenticationResponse
+import com.zyuniversita.data.remote.synchronization.model.DownloadedUserData
 import com.zyuniversita.data.remote.wordDatabase.model.WordDatabaseEntity
-import com.zyuniversita.domain.model.AvailableLanguage
-import com.zyuniversita.domain.model.Word
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.AvailableLanguage
+import com.zyuniversita.domain.model.words.Word
+import com.zyuniversita.domain.model.words.WordProgress
+import com.zyuniversita.domain.model.authentication.AuthenticationResponseEnum
+import com.zyuniversita.domain.model.authentication.AuthenticationResponseInfo
+import com.zyuniversita.domain.model.synchronization.SynchronizationResponseEnum
+import com.zyuniversita.domain.model.synchronization.SynchronizationResponseInfo
+import com.zyuniversita.domain.model.synchronization.UserDataToSynchronize
 import com.zyuniversita.domain.model.userdata.GeneralUserStats
+import com.zyuniversita.domain.model.userdata.UserQuizPerformanceStats
+import com.zyuniversita.domain.model.userdata.WordsUserData
 import javax.inject.Inject
 
 /**
@@ -66,6 +77,21 @@ interface DataMapper {
      * @return The corresponding [GeneralUserStats].
      */
     fun fromUserQuizPerformanceWithLanguageToGeneralUserStats(entity: UserQuizPerformanceWithLanguage): GeneralUserStats
+
+    fun fromAuthenticationResponseToAuthenticationResponseInfo(entity: AuthenticationResponse): AuthenticationResponseInfo
+
+    fun fromWordUserDataEntityToWordsUserData(entity: WordUserDataEntity): WordsUserData
+
+    fun fromDownloadedUserDataToSynchronizationResponseInfo(entity: DownloadedUserData): SynchronizationResponseInfo
+
+    fun fromGeneralUserStatsToUserQuizPerformanceWithLanguageEntity(
+        userId: Long,
+        entity: UserQuizPerformanceStats,
+    ): UserQuizPerformanceEntity
+
+    fun fromWordsUserDataToWordUserDataEntity(entity: WordsUserData): WordUserDataEntity
+
+    fun fromUserQuizPerformanceEntityToUserQuizPerformanceStats(entity: UserQuizPerformanceEntity): UserQuizPerformanceStats
 }
 
 /**
@@ -130,5 +156,57 @@ class DataMapperImpl @Inject constructor() : DataMapper {
             completedQuiz = entity.word.completedQuiz,
             correctAnswer = entity.word.correctAnswer,
             wrongAnswer = entity.word.wrongAnswer
+        )
+
+    override fun fromAuthenticationResponseToAuthenticationResponseInfo(entity: AuthenticationResponse): AuthenticationResponseInfo =
+        AuthenticationResponseInfo(
+            userId = entity.userId,
+            username = entity.username,
+            serverResponse = AuthenticationResponseEnum.SUCCESS
+        )
+
+    override fun fromWordUserDataEntityToWordsUserData(entity: WordUserDataEntity): WordsUserData =
+        WordsUserData(
+            wordId = entity.wordId,
+            selected = entity.selected,
+            correctCount = entity.correctCount,
+            wrongCount = entity.wrongCount,
+            lastSeen = entity.lastSeen
+        )
+
+    override fun fromDownloadedUserDataToSynchronizationResponseInfo(entity: DownloadedUserData): SynchronizationResponseInfo =
+        SynchronizationResponseInfo(
+            data = UserDataToSynchronize(entity.userId, entity.userData, entity.wordsUserData),
+            response = SynchronizationResponseEnum.SUCCESS
+        )
+
+    override fun fromGeneralUserStatsToUserQuizPerformanceWithLanguageEntity(
+        userId: Long,
+        entity: UserQuizPerformanceStats,
+    ): UserQuizPerformanceEntity =
+        UserQuizPerformanceEntity(
+            userId = userId.toInt(),
+            languageCode = entity.languageCode,
+            completedQuiz = entity.completedQuiz,
+            correctAnswer = entity.correctAnswer,
+            wrongAnswer = entity.wrongAnswer
+        )
+
+    override fun fromWordsUserDataToWordUserDataEntity(entity: WordsUserData): WordUserDataEntity =
+        WordUserDataEntity(
+            wordId = entity.wordId,
+            selected = entity.selected,
+            correctCount = entity.correctCount,
+            wrongCount = entity.wrongCount,
+            lastSeen = entity.lastSeen
+        )
+
+    override fun fromUserQuizPerformanceEntityToUserQuizPerformanceStats(entity: UserQuizPerformanceEntity): UserQuizPerformanceStats =
+        UserQuizPerformanceStats(
+            userId = entity.userId.toLong(),
+            languageCode = entity.languageCode,
+            completedQuiz = entity.completedQuiz,
+            correctAnswer = entity.correctAnswer,
+            wrongAnswer = entity.wrongAnswer
         )
 }

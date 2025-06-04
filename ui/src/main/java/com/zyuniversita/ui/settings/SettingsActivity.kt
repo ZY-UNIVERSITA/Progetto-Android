@@ -42,13 +42,15 @@ class SettingsActivity() : AppCompatActivity() {
         binding.Save.setOnClickListener {
             val username = binding.username.text.toString()
             val repetition = binding.repeatWords.isChecked
-            viewModel.saveData(SettingsToSave(username, repetition))
+            val synchronization = binding.synchronization.isChecked
+            viewModel.saveData(SettingsToSave(username, repetition, synchronization))
         }
     }
 
     private fun collectAllData() {
         collectUsername()
         collectRepetition()
+        collectSynchro()
         collectUiEvent()
     }
 
@@ -70,6 +72,15 @@ class SettingsActivity() : AppCompatActivity() {
         }
     }
 
+    private fun collectSynchro() {
+        lifecycleScope.launch {
+            viewModel.synchronization.filterNotNull().collect { repetition ->
+                binding.synchronization.isChecked = repetition
+            }
+
+        }
+    }
+
     private fun collectUiEvent() {
         lifecycleScope.launch {
             viewModel.settingsEvent.collect { event ->
@@ -78,7 +89,6 @@ class SettingsActivity() : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun goToHomePage() {

@@ -29,8 +29,9 @@ interface UserQuizPerformanceDao {
      *
      * @param list A list of [UserQuizPerformanceEntity] objects to insert.
      */
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(list: List<UserQuizPerformanceEntity>): Unit
+    suspend fun insertAll(list: List<UserQuizPerformanceEntity>): List<Long>
 
     /**
      * Inserts a single [UserQuizPerformanceEntity] object into the database.
@@ -39,6 +40,7 @@ interface UserQuizPerformanceDao {
      *
      * @param list The [UserQuizPerformanceEntity] object to insert.
      */
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(list: UserQuizPerformanceEntity): Unit
 
@@ -54,6 +56,7 @@ interface UserQuizPerformanceDao {
      * @param wrongAnswer The count value to add to the current number of wrong answers.
      * @return The number of rows affected by this update.
      */
+    @Transaction
     @Query(
         """
             UPDATE user_quiz_performance
@@ -73,6 +76,7 @@ interface UserQuizPerformanceDao {
      * @param languageCode The language code to filter the quiz performance record.
      * @return A [UserQuizPerformanceEntity] object representing the quiz performance for the specified user and language.
      */
+    @Transaction
     @Query(
         """
             SELECT * 
@@ -100,4 +104,38 @@ interface UserQuizPerformanceDao {
         """
     )
     suspend fun getUserDataByUserId(userId: Long): List<UserQuizPerformanceWithLanguage>
+
+    @Transaction
+    @Query(
+        """
+            DELETE
+            FROM user_quiz_performance
+            WHERE userId = :userId
+        """
+    )
+    suspend fun deleteAllEntriesByUserID(userId: Long)
+
+    @Transaction
+    @Query(
+        """
+            SELECT * 
+            FROM user_quiz_performance
+            WHERE userId = :userId
+        """
+    )
+    suspend fun getUserDataPerformanceByUserId(userId: Long): List<UserQuizPerformanceEntity>
+
+    @Transaction
+    @Query("""
+        INSERT INTO "user_quiz_performance" (userId, languageCode, completedQuiz, correctAnswer, wrongAnswer)
+        VALUES(:userId, :languageCode, :completedQuiz, :correctAnswer, :wrongAnswer)
+    """)
+    suspend fun insertInto(userId: Int, languageCode: String, completedQuiz: Int, correctAnswer: Int, wrongAnswer: Int): Long
+
+    @Transaction
+    @Query("""
+        SELECT *
+        FROM user_quiz_performance
+    """)
+    suspend fun getAll(): List<UserQuizPerformanceEntity>
 }

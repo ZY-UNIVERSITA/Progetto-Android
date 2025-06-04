@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BambooQuiz"
         android:usesCleartextTraffic="true"
-        tools:targetApi="35">
+        tools:targetApi="35"
+        android:enableOnBackInvokedCallback="true">
 
         <!-- FileProvider for an external camera to write in this application cache -->
         <provider
@@ -31,6 +32,12 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+        </provider>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove">
         </provider>
     </application>
 

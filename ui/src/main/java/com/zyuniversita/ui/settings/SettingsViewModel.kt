@@ -3,10 +3,14 @@ package com.zyuniversita.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zyuniversita.domain.model.settings.SettingsToSave
+import com.zyuniversita.domain.usecase.preferences.FetchSynchronizationUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchUsernameUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase
+import com.zyuniversita.domain.usecase.preferences.SetSynchronizationUseCase
 import com.zyuniversita.domain.usecase.preferences.SetUsernameUseCase
 import com.zyuniversita.domain.usecase.preferences.SetWordRepetitionUseCase
+import com.zyuniversita.domain.usecase.worker.RemoveSynchronizationWorkerUseCase
+import com.zyuniversita.domain.usecase.worker.StartSynchronizationWorkerUseCase
 import com.zyuniversita.ui.settings.uistate.SettingsEvent
 import com.zyuniversita.ui.settings.uistate.SettingsState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +31,11 @@ class SettingsViewModel @Inject constructor(
     private val fetchUsernameUseCase: FetchUsernameUseCase,
     private val setWordRepetitionUseCase: SetWordRepetitionUseCase,
     private val setUsernameUseCase: SetUsernameUseCase,
+    private val startSynchronizationWorkerUseCase: StartSynchronizationWorkerUseCase,
+    private val removeSynchronizationWorkerUseCase: RemoveSynchronizationWorkerUseCase,
+    private val fetchSynchronizationUseCase: FetchSynchronizationUseCase,
+    private val setSynchronizationUseCase: SetSynchronizationUseCase
+
 ) : ViewModel() {
     private val _wordRepetition: MutableStateFlow<Boolean?> = MutableStateFlow<Boolean?>(null)
     val wordRepetition: StateFlow<Boolean?> = _wordRepetition.asStateFlow()
@@ -37,6 +46,9 @@ class SettingsViewModel @Inject constructor(
     private val _settingsState: MutableStateFlow<SettingsState> = MutableStateFlow<SettingsState>(
         SettingsState()
     )
+
+    private val _synchronization: MutableStateFlow<Boolean> = MutableStateFlow<Boolean>(false)
+    val synchronization: StateFlow<Boolean> = _synchronization.asStateFlow()
 
     private val _settingsEvent: Channel<SettingsEvent> =
         Channel<SettingsEvent>(Channel.BUFFERED)
@@ -51,6 +63,11 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             val username = fetchUsernameUseCase().first()
             _username.emit(username)
+        }
+
+        viewModelScope.launch {
+            val synchronization = fetchSynchronizationUseCase().first()
+            _synchronization.emit(synchronization)
         }
     }
 
@@ -69,6 +86,22 @@ class SettingsViewModel @Inject constructor(
             _settingsState.update {
                 it.copy(
                     isRepetitionSaving = false
+                )
+            }
+        }
+
+        viewModelScope.launch {
+            setSynchronizationUseCase(newSettings.synchronization)
+
+            if (newSettings.synchronization) {
+                startSynchronizationWorkerUseCase()
+            } else {
+                removeSynchronizationWorkerUseCase()
+            }
+
+            _settingsState.update {
+                it.copy(
+                    isSynchronizationSaving = false
                 )
             }
         }

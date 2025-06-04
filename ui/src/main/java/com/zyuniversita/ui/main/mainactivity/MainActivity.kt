@@ -9,7 +9,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.zyuniversita.ui.databinding.HomepageActivityBinding
+import com.zyuniversita.ui.databinding.ActivityMainBinding
 import com.zyuniversita.ui.main.mainactivity.mainenum.ApplicationActivityFactory
 import com.zyuniversita.ui.main.mainactivity.mainenum.ApplicationFragmentFactory
 import com.zyuniversita.ui.main.mainactivity.mainenum.Page
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         private const val TAG: String = "Home Page TAG"
     }
 
-    private lateinit var _binding: HomepageActivityBinding
+    private lateinit var _binding: ActivityMainBinding
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Activity created")
 
-        _binding = HomepageActivityBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         val view = _binding.root
 
         setContentView(view)

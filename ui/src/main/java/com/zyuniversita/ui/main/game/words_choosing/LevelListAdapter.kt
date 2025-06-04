@@ -7,7 +7,7 @@ import android.widget.CompoundButton
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zyuniversita.domain.model.WordProgress
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.ui.databinding.ItemDifficultyLevelBinding
 
 class LevelListAdapter(
