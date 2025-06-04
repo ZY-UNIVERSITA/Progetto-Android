@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.zyuniversita.ui.databinding.FragmentWritingGameBinding
 import com.zyuniversita.ui.games.main.GameViewModel
-import com.zyuniversita.ui.games.writing.uistate.GameEvents
+import com.zyuniversita.ui.games.uistate.GameEvents
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -165,10 +165,11 @@ class WritingGameFragment : Fragment() {
     }
 
     private fun finishGame() {
+        activityViewModel.updateWordsStats(viewModel.wordsStats)
         viewModel.saveSession()
     }
 
     private fun returnToHome() {
-        activityViewModel.finishGame()
+        activityViewModel.showResult()
     }
 }

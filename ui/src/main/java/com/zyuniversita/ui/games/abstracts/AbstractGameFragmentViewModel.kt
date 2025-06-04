@@ -2,8 +2,8 @@ package com.zyuniversita.ui.games.abstracts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.model.userdata.GeneratedWordsStats
+import com.zyuniversita.domain.model.words.WordProgress
 import com.zyuniversita.domain.usecase.preferences.FetchUserIdUseCase
 import com.zyuniversita.domain.usecase.preferences.FetchWordRepetitionUseCase
 import com.zyuniversita.domain.usecase.question.UpdateAnswerSheetUseCase
@@ -11,7 +11,7 @@ import com.zyuniversita.domain.usecase.question.UpdateRemainingWordUseCase
 import com.zyuniversita.domain.usecase.userdata.UpdateUserDataUseCase
 import com.zyuniversita.domain.usecase.userdata.UpdateUserPerformanceUseCase
 import com.zyuniversita.domain.usecase.words.FetchWordsForQuizUseCase
-import com.zyuniversita.ui.games.writing.uistate.GameEvents
+import com.zyuniversita.ui.games.uistate.GameEvents
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +34,7 @@ abstract class AbstractGameFragmentViewModel(
 ) : ViewModel() {
     protected lateinit var quizWordsList: MutableList<WordProgress>
     protected var generatedWordsStat: MutableMap<Int, GeneratedWordsStats> = mutableMapOf()
+    val wordsStats: Map<Int, GeneratedWordsStats> get() = generatedWordsStat.toMap()
 
     private lateinit var _languageCode: String
     protected var wordRepetition: Boolean = false

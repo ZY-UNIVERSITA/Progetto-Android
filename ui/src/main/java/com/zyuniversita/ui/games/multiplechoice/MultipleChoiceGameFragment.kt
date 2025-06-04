@@ -16,7 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.zyuniversita.domain.model.words.MultipleChoiceQuestion
 import com.zyuniversita.ui.databinding.FragmentMultipleChoiceGameBinding
 import com.zyuniversita.ui.games.main.GameViewModel
-import com.zyuniversita.ui.games.writing.uistate.GameEvents
+import com.zyuniversita.ui.games.uistate.GameEvents
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -133,10 +133,10 @@ class MultipleChoiceGameFragment : Fragment() {
 
                 listButton[i].setOnClickListener {
                     if (i == randomWord.solution) {
-                        Toast.makeText(requireContext(), "Oki!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Ok!", Toast.LENGTH_SHORT).show()
                         viewModel.tempUpdate(true)
                     } else {
-                        Toast.makeText(requireContext(), "Not so Oki!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Not so ok!", Toast.LENGTH_SHORT).show()
                         viewModel.tempUpdate(false)
                     }
 
@@ -148,10 +148,11 @@ class MultipleChoiceGameFragment : Fragment() {
     }
 
     private fun finishGame() {
+        activityViewModel.updateWordsStats(viewModel.wordsStats)
         viewModel.saveSession()
     }
 
     private fun returnToHome() {
-        activityViewModel.finishGame()
+        activityViewModel.showResult()
     }
 }

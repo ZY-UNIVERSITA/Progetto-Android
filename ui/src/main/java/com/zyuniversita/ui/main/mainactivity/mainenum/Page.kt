@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.zyuniversita.ui.findcharacter.FindCharacterFragment
 import com.zyuniversita.ui.games.main.GameActivity
 import com.zyuniversita.ui.games.multiplechoice.MultipleChoiceGameFragment
+import com.zyuniversita.ui.games.results.ResultFragment
 import com.zyuniversita.ui.games.writing.WritingGameFragment
 import com.zyuniversita.ui.main.game.games_choosing.GameChoosingFragment
 import com.zyuniversita.ui.main.game.games_language.GamesLanguageListFragment
@@ -40,6 +41,7 @@ enum class Page {
     GAME_MULTIPLE_CHOOSING_INV,
     GAME_WRITING,
     GAME_LINKING,
+    RESULTS,
     SETTINGS,
     SETUP;
 }
@@ -61,7 +63,8 @@ object ApplicationFragmentFactory {
         Page.CHOOSE_WORDS to WordsChoosingFragment::class.java,
         Page.NAV to NavigationFragment::class.java,
         Page.GAME_MULTIPLE_CHOOSING to MultipleChoiceGameFragment::class.java,
-        Page.GAME_WRITING to WritingGameFragment::class.java
+        Page.GAME_WRITING to WritingGameFragment::class.java,
+        Page.RESULTS to ResultFragment::class.java
     )
 
     fun getPageClass(page: Page): Class<out Fragment> {
