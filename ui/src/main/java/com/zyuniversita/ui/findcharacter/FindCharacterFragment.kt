@@ -64,7 +64,23 @@ class FindCharacterFragment() : Fragment() {
         }
 
         binding.send.setOnClickListener {
-            uploadImage()
+            lifecycleScope.launch {
+                try {
+                    if (viewModel.tempImageUri == null) {
+                        val uri = binding.drawingView.saveAsWebp()
+
+                        uri?.let {
+                            viewModel.setImageUri(uri)
+                        }
+                    }
+
+                    uploadImage()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error trying to get image URI")
+                }
+
+            }
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -108,7 +124,7 @@ class FindCharacterFragment() : Fragment() {
 
     /*  BUTTON: Take a photo  */
     private fun onCameraClick() {
-        val uri = createTempImageUri()     
+        val uri = createTempImageUri()
         viewModel.setImageUri(uri)
         takePictureLauncher.launch(uri)
     }
@@ -168,10 +184,10 @@ class FindCharacterFragment() : Fragment() {
 
 
         binding.reset.setOnClickListener {
-            binding.imageView.setImageDrawable(null)         
+            binding.imageView.setImageDrawable(null)
             binding.imageView.visibility = View.GONE
             binding.reset.visibility = View.GONE
-            binding.drawGroup.visibility = View.VISIBLE   
+            binding.drawGroup.visibility = View.VISIBLE
         }
 
     }
