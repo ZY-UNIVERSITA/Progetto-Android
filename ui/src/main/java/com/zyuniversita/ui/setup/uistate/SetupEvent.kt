@@ -7,4 +7,6 @@ sealed interface SetupEvent {
     data object NavigateToRegister: SetupEvent
     data object NavigateToLocalRegister: SetupEvent
     data object NavigateToLogin: SetupEvent
+    // to pass a data
+    // data class example(val data: Int): SetupEvent
 }

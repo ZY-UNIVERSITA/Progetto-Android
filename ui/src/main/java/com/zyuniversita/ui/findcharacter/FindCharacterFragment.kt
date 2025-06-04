@@ -160,7 +160,6 @@ class FindCharacterFragment() : Fragment() {
     private fun handleImage(uri: Uri) {
         binding.reset.setOnClickListener(null)
 
-        // Esempio: la metti in un ImageView
         binding.imageView.setImageURI(uri)
 
         binding.drawGroup.visibility = View.GONE

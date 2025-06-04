@@ -1,6 +1,5 @@
 package com.zyuniversita.ui.setup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zyuniversita.domain.usecase.languages.StartFetchLanguageUseCase
@@ -62,7 +61,6 @@ class SetupViewModel @Inject constructor(
             uiState.collect { state ->
                 if (state.isSetupCompleted) {
                     _event.send(SetupEvent.NavigateToHome)
-                    _uiState.emit(SetupUiState())
                 }
             }
         }
@@ -134,14 +132,16 @@ class SetupViewModel @Inject constructor(
         viewModelScope.launch {
             val current = fetchCurrentDatabaseVersionUseCase().first()
 
-            val latest = runCatching { fetchLatestDatabaseVersionUseCase() }
-                .getOrElse {
-                    Log.e("Setup Check Database", "Problem with fetching latest DB version", it)
-                    null
-                }
+            val latest = fetchLatestDatabaseVersionUseCase()
+
+//            val latest = runCatching { fetchLatestDatabaseVersionUseCase() }
+//                .getOrElse {
+//                    Log.e("Setup Check Database", "Problem with fetching latest DB version", it)
+//                    null
+//                }
 
             // if the fetching is successful and there is a new version then update the db
-            if (latest != null && current < latest) {
+            if (latest > 0 && current < latest) {
                 updateWordDatabaseUseCase(latest)
                 setCurrentDatabaseVersionUseCase(latest)
             }

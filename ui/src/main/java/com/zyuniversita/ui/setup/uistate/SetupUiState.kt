@@ -42,7 +42,7 @@ data class SetupUiState(
         get() {
             // Create a list representing the state of each condition.
             val listBoolean: List<Boolean> = listOf(isDatabaseUpdating, isUsernameMissing, isUserIdMissing, isLanguageLoading)
-            // Count the conditions that are completed (i.e., false).
+            // Count the conditions that are completed (in this case is false).
             val numberOfTrue = listBoolean.count { !it }
             // Calculate the percentage of completed steps.
             return numberOfTrue * 100 / listBoolean.size
