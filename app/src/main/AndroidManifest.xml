@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BambooQuiz"
         android:usesCleartextTraffic="true"
-        tools:targetApi="35">
+        tools:targetApi="35"
+        android:enableOnBackInvokedCallback="true">
 
         <!-- FileProvider for an external camera to write in this application cache -->
         <provider
