@@ -23,7 +23,7 @@ class GenerateMultipleChoiceQuestionUseCaseImpl @Inject constructor(private val 
         while (allAnswers.size < 3) {
             var wrongAnswer: WordProgress = allWordsList.random()
 
-            while (allAnswers.contains(wrongAnswer) || wrongAnswer == word) {
+            while (allAnswers.contains(wrongAnswer) || wrongAnswer.word.wordId == word.word.wordId) {
                 wrongAnswer = allWordsList.random()
             }
 
@@ -32,8 +32,6 @@ class GenerateMultipleChoiceQuestionUseCaseImpl @Inject constructor(private val 
 
         val correctAnswerPosition: Int = Random.nextInt(0, 4)
         allAnswers.add(correctAnswerPosition, word)
-
-        println(allAnswers.size)
 
         return MultipleChoiceQuestion(word, allAnswers, correctAnswerPosition)
     }
