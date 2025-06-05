@@ -1,5 +1,6 @@
 package com.zyuniversita.data.remote.imagerecognition
 
+import android.util.Log
 import com.zyuniversita.data.remote.imagerecognition.api.ImageRecognitionApi
 import com.zyuniversita.data.remote.imagerecognition.model.ImageRecognitionResult
 import com.zyuniversita.domain.model.imagefinder.RawImage
@@ -33,8 +34,12 @@ interface RemoteImageRecognitionDataSource {
  * @property imageRecognitionApi The API interface used for image recognition network operations.
  */
 class RemoteImageRecognitionDataSourceImpl @Inject constructor(
-    private val imageRecognitionApi: ImageRecognitionApi
+    private val imageRecognitionApi: ImageRecognitionApi,
 ) : RemoteImageRecognitionDataSource {
+
+    companion object {
+        private const val TAG: String = "IMAGE_RECOGNITION_TAG"
+    }
 
     /**
      * Uploads the provided [RawImage] to the remote image recognition service.
@@ -47,11 +52,16 @@ class RemoteImageRecognitionDataSourceImpl @Inject constructor(
      * @return A [String] containing the recognized word, or null if the upload fails or the word is not recognized.
      */
     override suspend fun uploadImage(image: RawImage): String? {
-        val multipartBody = image.toMultipartBodyPart()
-        val response: Response<ImageRecognitionResult> =
-            imageRecognitionApi.uploadImageToRecognize(multipartBody)
+        return try {
+            val multipartBody = image.toMultipartBodyPart()
+            val response: Response<ImageRecognitionResult> =
+                imageRecognitionApi.uploadImageToRecognize(multipartBody)
 
-        return response.body()?.word
+            response.body()?.word
+        } catch (e: Exception) {
+            Log.e(TAG, "Connection error. Try again later")
+            null
+        }
     }
 
     /**
