@@ -37,7 +37,7 @@ object NetworkModule {
 
     /**
      * Builds and returns an [OkHttpClient] instance.
-     * TODO IF NEEDED: Add interceptors, timeouts, or certificate pinning here.
+     * TODO IF NEEDED: Add interceptors, timeouts, or certificate pinning here. Used to config the url.
      *
      * @return Configured [OkHttpClient].
      */
