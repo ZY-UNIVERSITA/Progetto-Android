@@ -52,8 +52,6 @@ class SetupActivity() : AppCompatActivity() {
         setContentView(view)
 
         notificationPermission()
-
-
     }
 
     /* ---------- One-Shot Event Collection ---------- */

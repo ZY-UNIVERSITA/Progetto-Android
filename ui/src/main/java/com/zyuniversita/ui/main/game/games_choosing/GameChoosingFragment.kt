@@ -29,7 +29,7 @@ class GameChoosingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentGameChoosingBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -50,16 +50,8 @@ class GameChoosingFragment : Fragment() {
             loadNextData(Page.GAME_MULTIPLE_CHOOSING)
         }
 
-        binding.langEngImage.setOnClickListener {
-            loadNextData(Page.GAME_MULTIPLE_CHOOSING_INV)
-        }
-
-        binding.writingGameImage.setOnClickListener {
+        binding.gameWritingImage.setOnClickListener {
             loadNextData(Page.GAME_WRITING)
-        }
-
-        binding.linkingGameImage.setOnClickListener {
-            loadNextData(Page.GAME_LINKING)
         }
     }
 

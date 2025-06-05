@@ -45,8 +45,8 @@
     <string name="home">Home</string>
     <string name="modify_profile">Modifica profilo</string>
     <string name="flag">flag</string>
-    <string name="game">Gioco</string>
-    <string name="word">Parola</string>
+    <string name="game">Giochi</string>
+    <string name="word">Parole</string>
     <string name="profile">Profilo</string>
     <string name="quiz">Quiz: %1$s</string>
     <string name="correct">Corrette: %1$.1f%%</string>
@@ -61,4 +61,5 @@
     <string name="synchronization">Sincronizzazione</string>
     <string name="logout">Disconnessione</string>
     <string name="back">Indietro</string>
+    <string name="results">Risultati</string>
 </resources>

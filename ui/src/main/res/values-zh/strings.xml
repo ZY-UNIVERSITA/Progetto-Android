@@ -61,4 +61,5 @@
     <string name="synchronization">同步</string>
     <string name="logout">退出登录</string>
     <string name="back">返回</string>
+    <string name="results">"结果 "</string>
 </resources>
