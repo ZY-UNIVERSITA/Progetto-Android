@@ -113,6 +113,11 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchUsername()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
