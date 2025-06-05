@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -55,6 +56,8 @@ class LoginFragment() : Fragment() {
                         AuthEvent.RegistrationAuth -> activityViewModel.changePage(Page.REGISTER)
                         AuthEvent.LocalRegistrationAuth -> activityViewModel.changePage(Page.LOCAL_REGISTER)
                     }
+
+                    enableUI(true)
                 }
             }
         }
@@ -66,6 +69,8 @@ class LoginFragment() : Fragment() {
                 val password = binding.passwordEditText.text.toString()
 
                 if (email.isNotEmpty() && password.isNotEmpty()) {
+                    enableUI(false)
+
                     val loginInfo =
                         LoginInfo(email = email, password = password)
 
@@ -104,5 +109,21 @@ class LoginFragment() : Fragment() {
         Toast.makeText(
             requireContext(), text, Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun enableUI(state: Boolean) {
+        val refId: IntArray = binding.loginGroup.referencedIds
+
+        refId.forEach {
+            val singleView = binding.root.findViewById<View>(it)
+
+            singleView?.apply {
+                isEnabled = state
+
+            }
+        }
+
+        binding.overlay.isVisible = !state
+        binding.waiting.isVisible = !state
     }
 }

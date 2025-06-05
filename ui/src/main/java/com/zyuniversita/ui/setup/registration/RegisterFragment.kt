@@ -54,6 +54,8 @@ class RegisterFragment() : Fragment() {
                         AuthEvent.RegistrationAuth -> activityViewModel.changePage(Page.REGISTER)
                         AuthEvent.LocalRegistrationAuth -> activityViewModel.changePage(Page.LOCAL_REGISTER)
                     }
+
+                    enableUI(true)
                 }
             }
         }
@@ -67,6 +69,8 @@ class RegisterFragment() : Fragment() {
                 val password = binding.passwordEditText.text.toString()
 
                 if (email.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty()) {
+                    enableUI(false)
+
                     val registrationInfo =
                         RegistrationInfo(email = email, username = username, password = password)
                     viewModel.register(registrationInfo)
@@ -102,5 +106,17 @@ class RegisterFragment() : Fragment() {
         Toast.makeText(
             requireContext(), text, Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun enableUI(state: Boolean) {
+        val refId: IntArray = binding.registrationGroup.referencedIds
+
+        refId.forEach {
+            val singleView = binding.root.findViewById<View>(it)
+
+            singleView?.apply {
+                isEnabled = state
+            }
+        }
     }
 }
