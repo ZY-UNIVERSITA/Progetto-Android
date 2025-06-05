@@ -18,7 +18,7 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
+    <ImageButton
         android:id="@+id/fab_add"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -26,6 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/eng_ch" />
+        android:src="@drawable/gallery"
+        android:scaleType="fitCenter"/>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

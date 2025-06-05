@@ -1,7 +1,6 @@
 package com.zyuniversita.ui.findcharacter
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zyuniversita.domain.usecase.imagerecognition.UploadImageToRecognizeUseCase
@@ -33,20 +32,14 @@ class FindCharacterViewModel @Inject constructor(
             _tempImageUri?.let {
 
                 val rawImage = mapper.map(_tempImageUri!!)
-                val result = runCatching { uploadImageToRecognizeUseCase(rawImage) }
+                val result = uploadImageToRecognizeUseCase(rawImage)
 
-                result.onSuccess { response ->
-                    response?.let {
-                        _tempImageUri = null
-                    }
+                val character = result?.let {
+                    _tempImageUri = null
+                    result
+                } ?: "Error. Try again"
 
-                    _imageRecognized.emit(response)
-                }.onFailure {
-                    Log.d("Image recognition", "Internet error or server is not responding.")
-                    _imageRecognized.emit("Error. Try again.")
-                }
-
-
+                _imageRecognized.emit(character)
             }
         }
     }
