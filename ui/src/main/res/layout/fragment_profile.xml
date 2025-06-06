@@ -12,10 +12,9 @@
         android:id="@+id/image_profile"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="#ccaacc"
         android:contentDescription="@string/profile_image"
         android:scaleType="centerCrop"
-        android:src="@drawable/eng_ch"
+        android:src="@drawable/outline_account_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

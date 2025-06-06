@@ -3,7 +3,6 @@ package com.zyuniversita.data.repository
 import android.content.Context
 import com.zyuniversita.data.local.database.db.QuizDatabase
 import com.zyuniversita.data.local.database.entities.LanguageEntity
-import com.zyuniversita.data.local.jsonData.LanguageDataSource
 import com.zyuniversita.data.utils.mapper.DataMapper
 import com.zyuniversita.domain.model.words.AvailableLanguage
 import com.zyuniversita.domain.repository.LanguageRepository
@@ -22,12 +21,10 @@ import javax.inject.Inject
  * and uses a [DataMapper] for mapping between database and domain models.
  *
  * @param context Application context used for initializing the local database.
- * @param languageDataSource Optional future integration point for remote language fetching.
  * @param dataMapper Mapper used to convert [LanguageEntity] to [AvailableLanguage].
  */
 class LanguageRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val languageDataSource: LanguageDataSource,
     private val dataMapper: DataMapper
 ) : LanguageRepository {
 

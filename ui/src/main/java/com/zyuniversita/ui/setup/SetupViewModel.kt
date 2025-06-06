@@ -134,12 +134,6 @@ class SetupViewModel @Inject constructor(
 
             val latest = fetchLatestDatabaseVersionUseCase()
 
-//            val latest = runCatching { fetchLatestDatabaseVersionUseCase() }
-//                .getOrElse {
-//                    Log.e("Setup Check Database", "Problem with fetching latest DB version", it)
-//                    null
-//                }
-
             // if the fetching is successful and there is a new version then update the db
             if (latest > 0 && current < latest) {
                 updateWordDatabaseUseCase(latest)
