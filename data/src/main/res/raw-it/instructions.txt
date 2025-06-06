@@ -1,0 +1,13 @@
+<h2>Benvenuto nella Nostra App!</h2>
+    <p>Segui questi passaggi per iniziare:</p>
+    <ol>
+        <li><b>Configurazione:</b> Personalizza il tuo profilo.</li>
+        <li><b>Esplora:</b> Scopri le funzionalità principali:
+            <ul>
+                <li><b>Home</b>: istruzioni</li>
+                <li><b>Giochi</b>: giochi come scelta multipla, scrittura di caratteri, ecc.</li>
+                <li><b>Parole</b>: lista di parole</li>
+                <li><b>Profilo</b>: profilo e personalizzazione</li>
+            </ul>
+        </li>
+    </ol>

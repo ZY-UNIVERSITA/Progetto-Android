@@ -5,8 +5,8 @@
         <li><b>Explore:</b> Discover the main features:
             <ul>
                 <li><b>Home</b>: instructions</li>
-                <li><b>Games</b>: games such as multiple choice, character writing, matching, etc.</li>
-                <li><b>Dictionary</b>: word list</li>
+                <li><b>Games</b>: games such as multiple choice, character writing, etc.</li>
+                <li><b>Words</b>: word list</li>
                 <li><b>Profile</b>: profile and customization</li>
             </ul>
         </li>

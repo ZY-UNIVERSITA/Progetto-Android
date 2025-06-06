@@ -62,5 +62,5 @@
     <string name="logout">Logout</string>
     <string name="back">Back</string>
     <string name="results">Results</string>
-    <string name="waiting">Waiting</string>
+    <string name="waiting">Waiting...</string>
 </resources>

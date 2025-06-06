@@ -62,4 +62,5 @@
     <string name="logout">ログアウト</string>
     <string name="back">戻る</string>
     <string name="results">"結果 "</string>
+    <string name="waiting">待機中…</string>
 </resources>
